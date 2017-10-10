@@ -12,11 +12,10 @@ const fetchChannel = () => {
       return response.json()
     })
     .then(response => {
-      console.log(response)
       if (response.data[0] === undefined) {
         return {
           display_name: 'No Results Found',
-          profile_image_url: 'http://www.iconsdb.com/icons/preview/purple/exclamation-xxl.png'
+          profile_image_url: 'images/twitch-error.png'
         }
       }
       else {
@@ -24,7 +23,6 @@ const fetchChannel = () => {
       }
     })
     .then(response => {
-      console.log(response)
       document.body.appendChild(generateChannel(response.display_name, response.profile_image_url))
     })
 }
@@ -52,5 +50,5 @@ const searchChannel = (event) => {
   }
 }
 
-const $search = document.querySelector('#search')
+const $search = document.querySelector('#search-box')
 $search.addEventListener('keydown', searchChannel)
