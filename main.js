@@ -1,12 +1,49 @@
-const $search = document.querySelector('#search')
-
 const myHeaders = new Headers()
-myHeaders.append('Authorization', 'OAuth 5rijohkbkardshfd8hj0modeyme9qe')
 myHeaders.append('Client-ID', 'l8lprk488tfke811xasmull5ckhwbh')
 
 const myInit = {
   method: 'GET',
   headers: myHeaders
+}
+
+const fetchChannel = () => {
+  fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
+    .then(response => {
+      return response.json()
+    })
+    .then(response => {
+      console.log(response)
+      if (response.data[0] === undefined) {
+        return {
+          display_name: 'No Results Found',
+          profile_image_url: 'http://www.iconsdb.com/icons/preview/purple/exclamation-xxl.png'
+        }
+      }
+      else {
+        return response.data[0]
+      }
+    })
+    .then(response => {
+      console.log(response)
+      document.body.appendChild(generateChannel(response.display_name, response.profile_image_url))
+    })
+}
+
+const generateChannel = (displayName, imgUrl) => {
+  if (document.querySelector('#channel-div') !== null) {
+    document.querySelector('#channel-div').remove()
+  }
+  const $div = document.createElement('div')
+  const $p = document.createElement('p')
+  const $img = document.createElement('img')
+  $p.id = 'channel-name'
+  $p.textContent = displayName
+  $img.id = 'channel-img'
+  $img.setAttribute('src', imgUrl)
+  $div.id = 'channel-div'
+  $div.appendChild($img)
+  $div.appendChild($p)
+  return $div
 }
 
 const searchChannel = (event) => {
@@ -15,14 +52,5 @@ const searchChannel = (event) => {
   }
 }
 
+const $search = document.querySelector('#search')
 $search.addEventListener('keydown', searchChannel)
-
-const fetchChannel = () => {
-  fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      return response.data[0]
-    })
-}
