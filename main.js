@@ -41,6 +41,8 @@ const fetchChannel = () => {
         })
         .then((response) => {
           document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
+          const monitorButton = document.querySelector('#monitor')
+          monitorButton.addEventListener('click', fetchMonitor)
         })
     })
 
@@ -64,7 +66,7 @@ const generateChannel = (displayName, imgUrl) => {
     if (channelIsStreaming) {
       const $button = document.createElement('button')
       $button.setAttribute('type', 'button')
-      $button.id = 'Monitor'
+      $button.id = 'monitor'
       $button.textContent = 'Monitor'
       $div.appendChild($button)
     }
@@ -82,6 +84,10 @@ const searchChannel = (event) => {
   if (event.keyCode === 13) {
     fetchChannel()
   }
+}
+
+const fetchMonitor = () => {
+  fetch('http://localhost:3000')
 }
 
 const $search = document.querySelector('#search-box')
