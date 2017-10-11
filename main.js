@@ -7,7 +7,8 @@ const myInit = {
   headers: myHeaders
 }
 
-let channelId = ''
+let channelData = {}
+let channelIsStreaming = null
 
 const fetchChannel = () => {
   fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
@@ -16,34 +17,33 @@ const fetchChannel = () => {
     })
     .then(response => {
       if (response.data[0] === undefined) {
-        return {
+        channelData = {
           display_name: 'No Results Found',
           profile_image_url: 'images/twitch-error.png'
         }
       }
       else {
-        return response.data[0]
+        channelData = response.data[0]
       }
     })
-    .then(response => {
-      channelId = response.id
-      document.body.appendChild(generateChannel(response.display_name, response.profile_image_url))
+    .then(() => {
+      fetch(('https://api.twitch.tv/kraken/streams/' + channelData.id), myInit)
+        .then(response => {
+          return response.json()
+        })
+        .then(response => {
+          if (response.stream === null) {
+            channelIsStreaming = false
+          }
+          else {
+            channelIsStreaming = true
+          }
+        })
+        .then((response) => {
+          document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
+        })
     })
-}
 
-const fetchChannelStatus = () => {
-  fetch(('https://api.twitch.tv/kraken/streams/' + channelId), myInit)
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      if (response.stream !== null) {
-        console.log('Channel is Live!')
-      }
-      else {
-        console.log('Channel is Offline')
-      }
-    })
 }
 
 const generateChannel = (displayName, imgUrl) => {
@@ -60,6 +60,21 @@ const generateChannel = (displayName, imgUrl) => {
   $div.id = 'channel-div'
   $div.appendChild($img)
   $div.appendChild($p)
+  if (channelData.display_name !== 'No Results Found') {
+    if (channelIsStreaming) {
+      const $button = document.createElement('button')
+      $button.setAttribute('type', 'button')
+      $button.id = 'Monitor'
+      $button.textContent = 'Monitor'
+      $div.appendChild($button)
+    }
+    else {
+      const $p2 = document.createElement('p')
+      $p2.id = 'offline'
+      $p2.textContent = 'Stream Offline'
+      $div.appendChild($p2)
+    }
+  }
   return $div
 }
 
