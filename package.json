@@ -24,8 +24,10 @@
     "stylelint-config-standard": "17.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
-    "mongodb": "^2.2.31",
+    "path": "^0.12.7",
     "tmi.js": "^1.2.1"
   }
 }

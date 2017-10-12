@@ -7,9 +7,6 @@ const myInit = {
   headers: myHeaders
 }
 
-let channelData = {}
-let channelIsStreaming = null
-
 const fetchChannel = () => {
   fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
     .then(response => {
@@ -27,23 +24,30 @@ const fetchChannel = () => {
       }
     })
     .then(() => {
-      fetch(('https://api.twitch.tv/kraken/streams/' + channelData.id), myInit)
-        .then(response => {
-          return response.json()
-        })
-        .then(response => {
-          if (response.stream === null) {
-            channelIsStreaming = false
-          }
-          else {
-            channelIsStreaming = true
-          }
-        })
-        .then((response) => {
-          document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
-          const monitorButton = document.querySelector('#monitor')
-          monitorButton.addEventListener('click', fetchMonitor)
-        })
+      if (channelData.display_name !== 'No Results Found') {
+        fetch(('https://api.twitch.tv/kraken/streams/' + channelData.id), myInit)
+          .then(response => {
+            return response.json()
+          })
+          .then(response => {
+            if (response.stream === null) {
+              channelIsStreaming = false
+            }
+            else {
+              channelIsStreaming = true
+            }
+          })
+          .then(() => {
+            document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
+            if (channelIsStreaming) {
+              const monitorButton = document.querySelector('#monitor')
+              monitorButton.addEventListener('click', activateMonitor)
+            }
+          })
+      }
+      else {
+        document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
+      }
     })
 
 }
@@ -67,7 +71,7 @@ const generateChannel = (displayName, imgUrl) => {
       const $button = document.createElement('button')
       $button.setAttribute('type', 'button')
       $button.id = 'monitor'
-      $button.textContent = 'Monitor'
+      $button.textContent = 'MONITOR'
       $div.appendChild($button)
     }
     else {
@@ -86,9 +90,22 @@ const searchChannel = (event) => {
   }
 }
 
-const fetchMonitor = () => {
-  fetch('http://localhost:3000')
-}
-
 const $search = document.querySelector('#search-box')
 $search.addEventListener('keydown', searchChannel)
+
+const activateMonitor = () => {
+  fetch('http://localhost:3000',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        channel: channelData.display_name
+      })
+    }
+  )
+}
+
+let channelData = {}
+let channelIsStreaming = null

@@ -86,3 +86,17 @@ h1 {
     -1px 1px 0.1vw rgb(25, 6, 72),
     1px 1px 0.1vw rgb(25, 6, 72);
 }
+
+#channel-div {
+  text-align: center;
+}
+
+#monitor {
+  font-size: 2em;
+  color: white;
+  font-style: 'Rubik';
+  border-radius: 0.2em;
+  background-color: rgb(110, 67, 167);
+  border-style: 1vw solid gray;
+  padding: 0.1vw 1vw;
+}
