@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+
 const myHeaders = new Headers()
 myHeaders.append('Client-ID', 'l8lprk488tfke811xasmull5ckhwbh')
 myHeaders.append('Accept', 'application/vnd.twitchtv.v5+json')
@@ -120,4 +123,23 @@ const fetchVod = () => {
       vodData = response.videos[0]
       console.log(response.videos[0])
     })
+}
+
+let highlightNum = 1
+
+const generateEmbed = (vodUrl, time) => {
+  const embedId = 'clip' + highlightNum
+  const embedOptions = {
+    width: 426,
+    height: 240,
+    video: vodUrl
+  }
+  const $div = document.createElement('div')
+  $div.id = embedId
+  document.body.appendChild($div)
+  const player = new Twitch.Player(embedId, embedOptions)
+  highlightNum++
+  setTimeout(() => {
+    player.seek(time)
+  }, 8000)
 }
