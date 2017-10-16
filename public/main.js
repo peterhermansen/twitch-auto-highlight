@@ -108,4 +108,16 @@ const activateMonitor = () => {
 }
 
 let channelData = {}
+let vodData = {}
 let channelIsStreaming = null
+
+const fetchVod = () => {
+  fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
+    .then(response => {
+      return response.json()
+    })
+    .then(response => {
+      vodData = response.videos[0]
+      console.log(response.videos[0])
+    })
+}
