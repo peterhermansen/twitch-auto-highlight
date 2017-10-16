@@ -17,17 +17,17 @@ const fetchChannel = () => {
     })
     .then(response => {
       if (response.data[0] === undefined) {
-        channelData = {
+        channelData.push({
           display_name: 'No Results Found',
           profile_image_url: 'images/twitch-error.png'
-        }
+        })
       }
       else {
-        channelData = response.data[0]
+        channelData.push(response.data[0])
       }
     })
     .then(() => {
-      if (channelData.display_name !== 'No Results Found') {
+      if (channelData[0].display_name !== 'No Results Found') {
         fetch(('https://api.twitch.tv/kraken/streams/' + channelData.id), myInit)
           .then(response => {
             return response.json()
@@ -41,11 +41,21 @@ const fetchChannel = () => {
             }
           })
           .then(() => {
-            document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
+            document.body.appendChild(generateChannel(channelData[0].display_name, channelData[0].profile_image_url))
             if (channelIsStreaming) {
               const monitorButton = document.querySelector('#monitor')
               monitorButton.addEventListener('click', activateMonitor)
             }
+          })
+          .then(() => {
+            fetch(('https://api.twitch.tv/kraken/channels/' + channelData[0].id + '/videos'), myInit)
+              .then(response => {
+                return response.json()
+              })
+              .then(response => {
+                console.log(response.videos[0])
+                channelData.push(response.videos[0])
+              })
           })
       }
       else {
@@ -104,31 +114,17 @@ const activateMonitor = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        channel: channelData.display_name
+        channel: channelData
       })
     }
   )
 }
 
-let channelData = {}
-let vodData = {}
+let channelData = []
 let channelIsStreaming = null
 
-const fetchVod = () => {
-  fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      vodData = response.videos[0]
-      console.log(response.videos[0])
-    })
-}
-
-let highlightNum = 1
-
-const generateEmbed = (vodUrl, time) => {
-  const embedId = 'clip' + highlightNum
+const generateEmbed = (vodUrl, time, id) => {
+  const embedId = 'clip' + id
   const embedOptions = {
     width: 426,
     height: 240,
@@ -138,8 +134,18 @@ const generateEmbed = (vodUrl, time) => {
   $div.id = embedId
   document.body.appendChild($div)
   const player = new Twitch.Player(embedId, embedOptions)
-  highlightNum++
   setTimeout(() => {
     player.seek(time)
   }, 8000)
+}
+
+const fetchVod = (id) => {
+  fetch(('https://api.twitch.tv/kraken/channels/' + id + '/videos'), myInit)
+    .then(response => {
+      return response.json()
+    })
+    .then(response => {
+      console.log(response.videos[0])
+      return response.videos[0]
+    })
 }
