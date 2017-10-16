@@ -8,12 +8,6 @@ const path = require('path')
 const { MongoClient } = require('mongodb')
 
 const channelData = []
-
-const myInit = {
-  method: 'GET',
-  headers: {'Client-ID': 'l8lprk488tfke811xasmull5ckhwbh'}
-}
-
 const chatLog = []
 let chatInterval = []
 
