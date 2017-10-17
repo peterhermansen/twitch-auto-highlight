@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
 const myHeaders = new Headers()
@@ -10,6 +9,9 @@ const myInit = {
   headers: myHeaders
 }
 
+let channelData = ''
+let vodData = ''
+
 const fetchChannel = () => {
   fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
     .then(response => {
@@ -17,17 +19,17 @@ const fetchChannel = () => {
     })
     .then(response => {
       if (response.data[0] === undefined) {
-        channelData.push({
+        channelData = {
           display_name: 'No Results Found',
           profile_image_url: 'images/twitch-error.png'
-        })
+        }
       }
       else {
-        channelData.push(response.data[0])
+        channelData = response.data[0]
       }
     })
     .then(() => {
-      if (channelData[0].display_name !== 'No Results Found') {
+      if (channelData.display_name !== 'No Results Found') {
         fetch(('https://api.twitch.tv/kraken/streams/' + channelData.id), myInit)
           .then(response => {
             return response.json()
@@ -41,21 +43,11 @@ const fetchChannel = () => {
             }
           })
           .then(() => {
-            document.body.appendChild(generateChannel(channelData[0].display_name, channelData[0].profile_image_url))
+            document.body.appendChild(generateChannel(channelData.display_name, channelData.profile_image_url))
             if (channelIsStreaming) {
               const monitorButton = document.querySelector('#monitor')
               monitorButton.addEventListener('click', activateMonitor)
             }
-          })
-          .then(() => {
-            fetch(('https://api.twitch.tv/kraken/channels/' + channelData[0].id + '/videos'), myInit)
-              .then(response => {
-                return response.json()
-              })
-              .then(response => {
-                console.log(response.videos[0])
-                channelData.push(response.videos[0])
-              })
           })
       }
       else {
@@ -114,38 +106,67 @@ const activateMonitor = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        channel: channelData
+        channelData
       })
     }
   )
 }
 
-let channelData = []
 let channelIsStreaming = null
+let id = 1
 
-const generateEmbed = (vodUrl, time, id) => {
+const generateEmbed = (vodHighlight) => {
   const embedId = 'clip' + id
   const embedOptions = {
     width: 426,
     height: 240,
-    video: vodUrl
+    video: vodHighlight.vod
   }
   const $div = document.createElement('div')
   $div.id = embedId
   document.body.appendChild($div)
   const player = new Twitch.Player(embedId, embedOptions)
+  id++
   setTimeout(() => {
-    player.seek(time)
+    player.seek(vodHighlight.time)
   }, 8000)
 }
 
-const fetchVod = (id) => {
-  fetch(('https://api.twitch.tv/kraken/channels/' + id + '/videos'), myInit)
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      console.log(response.videos[0])
-      return response.videos[0]
-    })
+const fetchVod = () => {
+  if (channelData.id !== undefined) {
+    fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
+      .then(response => {
+        return response.json()
+      })
+      .then(response => {
+        vodData = response.videos[0]._id
+        if (vodData !== '' && vodData !== undefined) {
+          fetchHighlights()
+        }
+      })
+  }
 }
+
+const fetchHighlights = () => fetch('http://localhost:3000/highlights',
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      vodData
+    })
+  }
+)
+  .then(response => {
+    return response.json()
+  })
+  .then(response => {
+    for (let i = 0, e = 1; i < response.length; i++, e++) {
+      if (document.querySelector('#clip' + e) === null) {
+        generateEmbed(response[i])
+      }
+    }
+  })
+
+setInterval(fetchVod, 10000)
