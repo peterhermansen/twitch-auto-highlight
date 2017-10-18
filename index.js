@@ -44,7 +44,7 @@ const pushChat = (streamer) => {
       chatLog.splice(0, 1)
     }
     weightedAverage(chatLog, streamer.id, streamer)
-  }, 10000)
+  }, 6000)
 }
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -77,7 +77,7 @@ const weightedAverage = (chatArray, channelId, channelData) => {
   averageChat = (averageChat / 25)
   console.log(averageChat)
   console.log(currentChat)
-  if (chatArray.length === 6 && currentChat > (averageChat * 4) && averageChat > 2) {
+  if (chatArray.length === 6 && averageChat > 2 && currentChat > averageChat * 3.5) {
     console.log('HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT!!!')
     fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
       .then(response => {
@@ -94,11 +94,10 @@ const weightedAverage = (chatArray, channelId, channelData) => {
         }
         const highlights = db.collection('highlights')
         const newHighlight = {
-          channel: response.channel,
-          time: response.length,
+          channel: response.channel.name,
           increase: currentChat / averageChat,
           vod: response._id,
-          date: response.created_at
+          time: calculateTime(response.created_at)
         }
         highlights.insertOne(newHighlight, (err, result) => {
           if (err) {
@@ -114,13 +113,30 @@ const weightedAverage = (chatArray, channelId, channelData) => {
 }
 
 app.post('/highlights', (req, res) => {
+  const vodId = req.body
   MongoClient.connect('mongodb://localhost/twitch-auto-highlight')
     .then(db => {
       const highlights = db.collection('highlights')
-      highlights.find().toArray()
+      highlights.find(vodId).toArray()
         .then(result => {
           db.close()
           res.send(result)
         })
     })
 })
+
+const calculateTime = (created) => {
+  const createdDate = new Date(created).getTime()
+  const nowDate = new Date().getTime()
+  return ((nowDate - createdDate) / 1000) - 20
+}
+
+MongoClient.connect('mongodb://localhost/twitch-auto-highlight')
+  .then(db => {
+    const highlights = db.collection('highlights')
+    highlights.find({vod: 'v183208271'}).toArray()
+      .then(result => {
+        db.close()
+        console.log(result)
+      })
+  })

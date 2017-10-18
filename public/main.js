@@ -10,7 +10,7 @@ const myInit = {
 }
 
 let channelData = ''
-let vodData = ''
+let vod = ''
 
 const fetchChannel = () => {
   fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
@@ -129,7 +129,7 @@ const generateEmbed = (vodHighlight) => {
   id++
   setTimeout(() => {
     player.seek(vodHighlight.time)
-  }, 8000)
+  }, 15000)
 }
 
 const fetchVod = () => {
@@ -139,8 +139,8 @@ const fetchVod = () => {
         return response.json()
       })
       .then(response => {
-        vodData = response.videos[0]._id
-        if (vodData !== '' && vodData !== undefined) {
+        vod = response.videos[0]._id
+        if (vod !== '' && vod !== undefined) {
           fetchHighlights()
         }
       })
@@ -154,7 +154,7 @@ const fetchHighlights = () => fetch('http://localhost:3000/highlights',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      vodData
+      vod
     })
   }
 )
