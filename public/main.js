@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 const myHeaders = new Headers()
 myHeaders.append('Client-ID', 'l8lprk488tfke811xasmull5ckhwbh')
 myHeaders.append('Accept', 'application/vnd.twitchtv.v5+json')
@@ -6,6 +8,9 @@ const myInit = {
   method: 'GET',
   headers: myHeaders
 }
+
+let channelData = ''
+let vodData = ''
 
 const fetchChannel = () => {
   fetch(('https://api.twitch.tv/helix/users?login=' + $search.value), myInit)
@@ -101,11 +106,67 @@ const activateMonitor = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        channel: channelData.display_name
+        channelData
       })
     }
   )
 }
 
-let channelData = {}
 let channelIsStreaming = null
+let id = 1
+
+const generateEmbed = (vodHighlight) => {
+  const embedId = 'clip' + id
+  const embedOptions = {
+    width: 426,
+    height: 240,
+    video: vodHighlight.vod
+  }
+  const $div = document.createElement('div')
+  $div.id = embedId
+  document.body.appendChild($div)
+  const player = new Twitch.Player(embedId, embedOptions)
+  id++
+  setTimeout(() => {
+    player.seek(vodHighlight.time)
+  }, 8000)
+}
+
+const fetchVod = () => {
+  if (channelData.id !== undefined) {
+    fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
+      .then(response => {
+        return response.json()
+      })
+      .then(response => {
+        vodData = response.videos[0]._id
+        if (vodData !== '' && vodData !== undefined) {
+          fetchHighlights()
+        }
+      })
+  }
+}
+
+const fetchHighlights = () => fetch('http://localhost:3000/highlights',
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      vodData
+    })
+  }
+)
+  .then(response => {
+    return response.json()
+  })
+  .then(response => {
+    for (let i = 0, e = 1; i < response.length; i++, e++) {
+      if (document.querySelector('#clip' + e) === null) {
+        generateEmbed(response[i])
+      }
+    }
+  })
+
+setInterval(fetchVod, 10000)
