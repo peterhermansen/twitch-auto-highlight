@@ -44,7 +44,7 @@ const pushChat = (streamer) => {
       chatLog.splice(0, 1)
     }
     weightedAverage(chatLog, streamer.id, streamer)
-  }, 5000)
+  }, 10000)
 }
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -77,7 +77,7 @@ const weightedAverage = (chatArray, channelId, channelData) => {
   averageChat = (averageChat / 25)
   console.log(averageChat)
   console.log(currentChat)
-  if (chatArray.length === 6) {
+  if (chatArray.length === 6 && currentChat > (averageChat * 4) && averageChat > 2) {
     console.log('HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT!!!')
     fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
       .then(response => {
@@ -92,13 +92,15 @@ const weightedAverage = (chatArray, channelId, channelData) => {
           console.error(err)
           process.exit(1)
         }
-        const vodId = db.collection(response._id)
+        const highlights = db.collection('highlights')
         const newHighlight = {
+          channel: response.channel,
           time: response.length,
           increase: currentChat / averageChat,
-          vod: response._id
+          vod: response._id,
+          date: response.created_at
         }
-        vodId.insertOne(newHighlight, (err, result) => {
+        highlights.insertOne(newHighlight, (err, result) => {
           if (err) {
             console.error(err)
           }
@@ -114,8 +116,8 @@ const weightedAverage = (chatArray, channelId, channelData) => {
 app.post('/highlights', (req, res) => {
   MongoClient.connect('mongodb://localhost/twitch-auto-highlight')
     .then(db => {
-      const vodId = db.collection(req.body.vodData)
-      vodId.find().toArray()
+      const highlights = db.collection('highlights')
+      highlights.find().toArray()
         .then(result => {
           db.close()
           res.send(result)
