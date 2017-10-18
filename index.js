@@ -77,7 +77,7 @@ const weightedAverage = (chatArray, channelId, channelData) => {
   averageChat = (averageChat / 25)
   console.log(averageChat)
   console.log(currentChat)
-  if (chatArray.length === 6 && averageChat > 2 && currentChat > averageChat * 3.5) {
+  if (chatArray.length === 6 && averageChat > 2 && currentChat > averageChat * 4) {
     console.log('HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT!!!')
     fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
       .then(response => {
@@ -97,7 +97,8 @@ const weightedAverage = (chatArray, channelId, channelData) => {
           channel: response.channel.name,
           increase: currentChat / averageChat,
           vod: response._id,
-          time: calculateTime(response.created_at)
+          time: calculateTime(response.created_at),
+          date: response.created_at
         }
         highlights.insertOne(newHighlight, (err, result) => {
           if (err) {
@@ -128,7 +129,7 @@ app.post('/highlights', (req, res) => {
 const calculateTime = (created) => {
   const createdDate = new Date(created).getTime()
   const nowDate = new Date().getTime()
-  return ((nowDate - createdDate) / 1000) - 20
+  return Math.floor(((nowDate - createdDate) / 1000) - 30)
 }
 
 MongoClient.connect('mongodb://localhost/twitch-auto-highlight')

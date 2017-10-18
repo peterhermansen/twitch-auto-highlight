@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
 const myHeaders = new Headers()
 myHeaders.append('Client-ID', 'l8lprk488tfke811xasmull5ckhwbh')
@@ -120,16 +121,15 @@ const generateEmbed = (vodHighlight) => {
   const embedOptions = {
     width: 426,
     height: 240,
-    video: vodHighlight.vod
+    video: vodHighlight.vod,
+    autoplay: false,
+    time: vodHighlight.time + 's'
   }
   const $div = document.createElement('div')
   $div.id = embedId
   document.body.appendChild($div)
   const player = new Twitch.Player(embedId, embedOptions)
   id++
-  setTimeout(() => {
-    player.seek(vodHighlight.time)
-  }, 15000)
 }
 
 const fetchVod = () => {
