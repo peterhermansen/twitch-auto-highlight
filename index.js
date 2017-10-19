@@ -77,7 +77,7 @@ const weightedAverage = (chatArray, channelId, channelData) => {
   averageChat = (averageChat / 25)
   console.log(averageChat)
   console.log(currentChat)
-  if (chatArray.length === 6 && averageChat > 2 && currentChat > averageChat * 4) {
+  if (chatArray.length === 6) {
     console.log('HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT!!!')
     fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
       .then(response => {
@@ -129,13 +129,35 @@ app.post('/highlights', (req, res) => {
 const calculateTime = (created) => {
   const createdDate = new Date(created).getTime()
   const nowDate = new Date().getTime()
-  return Math.floor(((nowDate - createdDate) / 1000) - 30)
+  return Math.floor(((nowDate - createdDate) / 1000) - 25)
 }
+
+app.post('/past-highlights', (req, res) => {
+  const channelName = req.body
+  MongoClient.connect('mongodb://localhost/twitch-auto-highlight')
+    .then(db => {
+      const highlights = db.collection('highlights')
+      if (channelName.channel === '') {
+        highlights.find({}).toArray()
+          .then(result => {
+            db.close()
+            res.send(result)
+          })
+      }
+      else {
+        highlights.find(channelName).toArray()
+          .then(result => {
+            db.close()
+            res.send(result)
+          })
+      }
+    })
+})
 
 MongoClient.connect('mongodb://localhost/twitch-auto-highlight')
   .then(db => {
     const highlights = db.collection('highlights')
-    highlights.find({vod: 'v183208271'}).toArray()
+    highlights.find({}).toArray()
       .then(result => {
         db.close()
         console.log(result)
