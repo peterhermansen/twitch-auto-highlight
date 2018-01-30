@@ -77,7 +77,7 @@ const weightedAverage = (chatArray, channelId, channelData) => {
   averageChat = (averageChat / 25)
   console.log(averageChat)
   console.log(currentChat)
-  if (chatArray.length === 6 && averageChat > 3 && currentChat > averageChat * 3) {
+  if (chatArray.length === 6 && averageChat > 2.5 && currentChat > averageChat * 4) {
     console.log('HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT HIGHLIGHT!!!')
     fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
       .then(response => {
