@@ -4,7 +4,12 @@
   "description": "A web app for twitch viewers who want to see auto-generated highlights of their favorite streamers.",
   "private": true,
   "scripts": {
-    "watch": "nodemon index.js"
+    "start": "node ./server/index.js",
+    "bundle:watch": "watchify ./server/index.js -vd -t babelify -o ./server/public/main.js",
+    "watch:server": "nodemon server",
+    "watch:client": "watchify ./client/index.js -vd -t babelify -o ./server/public/main.js",
+    "watch:sync": "browser-sync start -c sync.js",
+    "watch": "npm-run-all --parallel watch:*",
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
