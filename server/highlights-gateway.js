@@ -5,8 +5,8 @@ module.exports = function highlightsGateway(collection) {
       collection.insertOne(highlightData)
     },
 
-    async find() {
-      const highlightList = await collection.find({}).toArray()
+    async find(channelName) {
+      const highlightList = await collection.find({channel: channelName}).toArray()
       return highlightList
     }
   }
