@@ -6,8 +6,15 @@ module.exports = function highlightsGateway(collection) {
     },
 
     async find(channelName) {
-      const highlightList = await collection.find({channel: channelName}).toArray()
-      return highlightList
+      if (channelName) {
+        const highlightList = await collection.find({channel: channelName}).toArray()
+        return highlightList
+      }
+
+      else {
+        const highlightList = await collection.find({}).toArray()
+        return highlightList
+      }
     }
   }
 }
