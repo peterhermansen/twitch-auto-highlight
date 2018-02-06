@@ -32,6 +32,7 @@ export default class HighlightApp extends React.Component {
 
   embedHighlight({ vod, time }, iterator) {
     const embedId = 'clip' + iterator
+    console.log(embedId)
     const embedOptions = {
       width: 426,
       height: 240,
@@ -43,7 +44,6 @@ export default class HighlightApp extends React.Component {
 
   async fetchHighlights() {
     const channel = this.props.channel
-
     let highlightArray = await fetch('http://localhost:3000/highlights',
       {
         method: 'POST',
@@ -57,9 +57,13 @@ export default class HighlightApp extends React.Component {
     )
 
     highlightArray = await highlightArray.json()
-    this.setState({
-      highlightArray: highlightArray
-    })
+    if (highlightArray.length !== this.state.highlightArray.length) {
+      console.log('Updating Highlight Array')
+      await this.setState({
+        highlightArray: highlightArray
+      })
+      this.state.highlightArray.map(this.embedHighlight)
+    }
   }
 
   render() {
