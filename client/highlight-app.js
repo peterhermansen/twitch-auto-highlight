@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import HighlightList from './highlight-list'
 
@@ -40,7 +41,7 @@ export default class HighlightApp extends React.Component {
       time: time + 's'
     }
 
-    const player = new Twitch.Player(embedId, embedOptions)
+    const newPlayer = new Twitch.Player(embedId, embedOptions)
   }
 
   async fetchHighlights() {
