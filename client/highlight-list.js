@@ -1,16 +1,23 @@
 import React from 'react'
 
 export default function HighlightList({ highlights }) {
-
   return (
 
     <div id="highlights">
-      {highlights.map(renderHighlight)}
+      {highlights.map(renderDiv)}
     </div>
 
   )
 }
 
-function renderHighlight({ vod }, iterator) {
-  return <div id={'clip' + iterator} key={iterator}></div>
+function renderDiv(streamArray, iterator) {
+
+  function renderHighlight(highlight) {
+    return <div id={highlight._id} key={highlight._id}></div>
+  }
+
+  return <div id={streamArray[0].vod} key={iterator}>
+    <h3>{streamArray[0].channel + ' - ' + streamArray[0].date}</h3>
+    {streamArray.map(renderHighlight)}
+  </div>
 }
