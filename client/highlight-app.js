@@ -13,7 +13,7 @@ export default class HighlightApp extends React.Component {
     }
 
     this.fetchHighlights = this.fetchHighlights.bind(this)
-    this.embedHighlight = this.embedHighlight.bind(this)
+    this.embedHighlights = this.embedHighlights.bind(this)
     this.sortHighlights = this.sortHighlights.bind(this)
   }
 
@@ -32,17 +32,22 @@ export default class HighlightApp extends React.Component {
     this.setState({intervalID: intervalID})
   }
 
-  embedHighlight({ vod, time }, iterator) {
-    const embedId = 'clip' + iterator
-    const embedOptions = {
-      width: 426,
-      height: 240,
-      video: vod,
-      autoplay: false,
-      time: time + 's'
+  embedHighlights(streamArray) {
+
+    function highlightOptions({ vod, time, _id }) {
+      const embedOptions = {
+        width: 426,
+        height: 240,
+        video: vod,
+        autoplay: false,
+        time: time + 's'
+      }
+
+      const newPlayer = new Twitch.Player(_id, embedOptions)
     }
 
-    const newPlayer = new Twitch.Player(embedId, embedOptions)
+    streamArray.map(highlightOptions)
+
   }
 
   async fetchHighlights() {
@@ -67,7 +72,7 @@ export default class HighlightApp extends React.Component {
       await this.setState({
         highlightArray: highlightArray
       })
-      this.state.highlightArray.map(this.embedHighlight)
+      this.state.highlightArray.map(this.embedHighlights)
     }
 
     else if (highlightArray[0].vod !== this.state.highlightArray[0][0].vod) {
@@ -75,7 +80,7 @@ export default class HighlightApp extends React.Component {
       await this.setState({
         highlightArray: highlightArray
       })
-      this.state.highlightArray.map(this.embedHighlight)
+      this.state.highlightArray.map(this.embedHighlights)
     }
   }
 
@@ -93,7 +98,7 @@ export default class HighlightApp extends React.Component {
         streamArray = []
         streamArray.push(highlight)
       }
-      if (iterator === highlights.length + 1) {
+      if (iterator === highlights.length - 1) {
         divArray.push(streamArray)
         streamArray = []
         streamArray.push(highlight)
