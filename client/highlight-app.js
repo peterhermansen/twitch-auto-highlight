@@ -14,10 +14,11 @@ export default class HighlightApp extends React.Component {
 
     this.fetchHighlights = this.fetchHighlights.bind(this)
     this.embedHighlight = this.embedHighlight.bind(this)
+    this.sortHighlights = this.sortHighlights.bind(this)
   }
 
   componentDidMount() {
-    let intervalID = setInterval(this.fetchHighlights, 1000)
+    let intervalID = setInterval(this.fetchHighlights, 6000)
     this.setState({intervalID: intervalID})
   }
 
@@ -27,7 +28,7 @@ export default class HighlightApp extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.fetchHighlights, 1000)
+    let intervalID = setInterval(this.fetchHighlights, 6000)
     this.setState({intervalID: intervalID})
   }
 
@@ -60,12 +61,47 @@ export default class HighlightApp extends React.Component {
     )
 
     highlightArray = await highlightArray.json()
-    if (highlightArray.length !== this.state.highlightArray.length) {
+
+    if (this.state.highlightArray[0] === undefined) {
+      highlightArray = this.sortHighlights(highlightArray)
       await this.setState({
         highlightArray: highlightArray
       })
       this.state.highlightArray.map(this.embedHighlight)
     }
+
+    else if (highlightArray[0].vod !== this.state.highlightArray[0][0].vod) {
+      highlightArray = this.sortHighlights(highlightArray)
+      await this.setState({
+        highlightArray: highlightArray
+      })
+      this.state.highlightArray.map(this.embedHighlight)
+    }
+  }
+
+  sortHighlights(highlights) {
+    const divArray = []
+    let streamArray = []
+
+    function divideHighlights(highlight, iterator) {
+      if (iterator === 0) streamArray.push(highlight)
+      if (iterator > 0 && highlight.date === streamArray[0].date) {
+        streamArray.push(highlight)
+      }
+      if (iterator > 0 && highlight.date !== streamArray[0].date) {
+        divArray.push(streamArray)
+        streamArray = []
+        streamArray.push(highlight)
+      }
+      if (iterator === highlights.length + 1) {
+        divArray.push(streamArray)
+        streamArray = []
+        streamArray.push(highlight)
+      }
+    }
+
+    highlights.map(divideHighlights)
+    return divArray
   }
 
   render() {
