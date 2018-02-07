@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import HighlightList from './highlight-list'
 
@@ -35,15 +36,17 @@ export default class HighlightApp extends React.Component {
     const embedOptions = {
       width: 426,
       height: 240,
-      video: vod
+      video: vod,
+      autoplay: false,
+      time: time + 's'
     }
 
-    const player = new Twitch.Player(embedId, embedOptions)
+    const newPlayer = new Twitch.Player(embedId, embedOptions)
   }
 
   async fetchHighlights() {
-    const channel = this.props.channel
-
+    let channel = this.props.channel
+    if (channel) channel = channel.toLowerCase()
     let highlightArray = await fetch('http://localhost:3000/highlights',
       {
         method: 'POST',
@@ -57,9 +60,12 @@ export default class HighlightApp extends React.Component {
     )
 
     highlightArray = await highlightArray.json()
-    this.setState({
-      highlightArray: highlightArray
-    })
+    if (highlightArray.length !== this.state.highlightArray.length) {
+      await this.setState({
+        highlightArray: highlightArray
+      })
+      this.state.highlightArray.map(this.embedHighlight)
+    }
   }
 
   render() {
