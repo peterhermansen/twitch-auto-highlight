@@ -3,8 +3,8 @@ import ChannelApp from './channel-app'
 
 export default class SearchApp extends React.Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       channelData: {},
       channelIsStreaming: ''
