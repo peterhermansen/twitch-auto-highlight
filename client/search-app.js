@@ -51,7 +51,7 @@ export default class SearchApp extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="search-div">
         <div id="search">
           <input
             onChange={this.handleChange}
