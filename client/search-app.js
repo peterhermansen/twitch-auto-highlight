@@ -16,7 +16,7 @@ export default class SearchApp extends React.Component {
 
   handleKeyDown(event) {
     if (event.keyCode === 13) {
-      this.fetchChannelData(event.target.value)
+      this.fetchChannelData(event.target.value.toLowerCase())
     }
   }
 
