@@ -1,4 +1,5 @@
 import React from 'react'
+import dateFormat from 'dateformat'
 
 export default function HighlightList({ highlights }) {
   return (
