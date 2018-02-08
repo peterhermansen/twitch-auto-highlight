@@ -52,7 +52,7 @@ export default class ChannelApp extends React.Component {
       <div>
         <div id="channel-div">
           <img id="channel-img" src={this.state.image}/>
-          <p id="channel-name">{this.state.name}</p>
+          <p id="channel-name">{this.state.name.toUpperCase()}</p>
           <button
             onClick={this.handleClick}
             type="button"
