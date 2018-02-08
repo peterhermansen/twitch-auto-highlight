@@ -16,7 +16,7 @@ function renderDiv(streamArray, iterator) {
   const cleanDate = dateFormat(streamArray[0].date, 'fullDate')
 
   function renderHighlight(highlight) {
-    return <div id={highlight._id} key={highlight._id}></div>
+    return <div id={highlight._id} key={highlight._id} className="highlight-clip"></div>
   }
 
   return <div id={streamArray[0].vod} key={iterator}>
