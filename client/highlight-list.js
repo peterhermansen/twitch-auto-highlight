@@ -20,7 +20,7 @@ function renderDiv(streamArray, iterator) {
   }
 
   return <div id={streamArray[0].vod} key={iterator}>
-    <h3>{streamArray[0].channel + ' - ' + cleanDate}</h3>
+    <h3 className="highlight-title">{streamArray[0].channel + ' - ' + cleanDate}</h3>
     {streamArray.map(renderHighlight)}
   </div>
 }
