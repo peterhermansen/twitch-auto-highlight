@@ -1,7 +1,7 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import HighlightList from './highlight-list'
+import highlightEmbed from './highlight-embed'
+import highlightSort from './highlight-sort'
 
 export default class HighlightApp extends React.Component {
 
@@ -13,11 +13,10 @@ export default class HighlightApp extends React.Component {
     }
 
     this.fetchHighlights = this.fetchHighlights.bind(this)
-    this.embedHighlight = this.embedHighlight.bind(this)
   }
 
   componentDidMount() {
-    let intervalID = setInterval(this.fetchHighlights, 1000)
+    let intervalID = setInterval(this.fetchHighlights, 100)
     this.setState({intervalID: intervalID})
   }
 
@@ -27,21 +26,8 @@ export default class HighlightApp extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.fetchHighlights, 1000)
+    let intervalID = setInterval(this.fetchHighlights, 100)
     this.setState({intervalID: intervalID})
-  }
-
-  embedHighlight({ vod, time }, iterator) {
-    const embedId = 'clip' + iterator
-    const embedOptions = {
-      width: 426,
-      height: 240,
-      video: vod,
-      autoplay: false,
-      time: time + 's'
-    }
-
-    const newPlayer = new Twitch.Player(embedId, embedOptions)
   }
 
   async fetchHighlights() {
@@ -60,11 +46,21 @@ export default class HighlightApp extends React.Component {
     )
 
     highlightArray = await highlightArray.json()
-    if (highlightArray.length !== this.state.highlightArray.length) {
+
+    if (this.state.highlightArray[0] === undefined) {
+      highlightArray = highlightSort(highlightArray)
       await this.setState({
         highlightArray: highlightArray
       })
-      this.state.highlightArray.map(this.embedHighlight)
+      this.state.highlightArray.map(highlightEmbed)
+    }
+
+    else if (highlightArray[0].vod !== this.state.highlightArray[0][0].vod) {
+      highlightArray = highlightSort(highlightArray)
+      await this.setState({
+        highlightArray: highlightArray
+      })
+      this.state.highlightArray.map(highlightEmbed)
     }
   }
 

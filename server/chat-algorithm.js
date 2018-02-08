@@ -22,9 +22,9 @@ module.exports = function chatAlgorithm(chatArray, channelData, highlights) {
       console.log(currentChat)
       if (chatArray.length === 6 && averageChat > 2 && currentChat > (averageChat * 5)) {
 
-        let highlightResponse = await fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
-        highlightResponse = await highlightResponse.json()
-        const highlightData = highlightResponse.videos[0]
+        let highlightData = await fetch(('https://api.twitch.tv/kraken/channels/' + channelData.id + '/videos'), myInit)
+        highlightData = await highlightData.json()
+        highlightData = highlightData.videos[0]
 
         const calculateTime = (createdAt) => {
           const createdDate = new Date(createdAt).getTime()
@@ -36,7 +36,7 @@ module.exports = function chatAlgorithm(chatArray, channelData, highlights) {
           channel: highlightData.channel.name,
           vod: highlightData._id,
           time: calculateTime(highlightData.created_at),
-          date: highlightResponse.created_at,
+          date: new Date(highlightData.created_at),
           increase: currentChat / averageChat
         }
 
