@@ -1,11 +1,11 @@
 import React from 'react'
-import SearchApp from './search-app'
+import NavbarApp from './navbar-app'
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <SearchApp />
+      <NavbarApp />
     )
   }
 
