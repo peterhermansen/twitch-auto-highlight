@@ -3,19 +3,18 @@ body {
   background-color: rgb(240, 240, 240);
 }
 
-h1 {
-  text-align: center;
+#navbar-title {
+
   font-family: 'Bungee';
-  font-size: 5em;
+  font-size: 2em;
   letter-spacing: 0.1em;
   text-shadow:
-    -5px -5px 0.5vw rgb(75, 56, 122),
-    5px -5px 0.5vw rgb(75, 56, 122),
-    -5px 5px 0.5vw rgb(75, 56, 122),
-    5px 5px 0.5vw rgb(75, 56, 122);
+    -1px -1px 0.3vw rgb(75, 56, 122),
+    1px -1px 0.3vw rgb(75, 56, 122),
+    -1px 1px 0.3vw rgb(75, 56, 122),
+    1px 1px 0.3vw rgb(75, 56, 122);
   color: rgb(250, 250, 250);
-  margin: auto;
-  padding: 1vw 0;
+  
 }
 
 #search {
