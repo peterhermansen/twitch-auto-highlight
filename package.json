@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "dateformat": "^3.0.2",
     "dotenv": "^5.0.0",
     "eslint": "^4.10.0",
     "eslint-config-standard": "^10.2.1",
@@ -36,8 +37,8 @@
     "mongodb": "^2.2.33",
     "node-fetch": "^1.7.3",
     "path": "^0.12.7",
-    "tmi.js": "^1.2.1",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "tmi.js": "^1.2.1"
   }
 }
