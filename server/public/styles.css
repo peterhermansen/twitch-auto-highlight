@@ -38,16 +38,17 @@ body {
 }
 
 #search {
-  margin-top: 2vw;
   text-align: center;
+  position: relative;
+  top: -3.4em;
 }
 
 #search-box {
-  width: 15em;
-  height: 2em;
+  width: 20em;
+  height: 1.5em;
   border-radius: 0.5em;
-  border: 0.2em solid rgb(110, 67, 167);
-  font-size: 2em;
+  border: 0.1em solid rgb(110, 67, 167);
+  font-size: 1.3em;
   padding: 1em 3em;
   box-sizing: border-box;
   color: rgb(125, 106, 172);
@@ -74,9 +75,9 @@ body {
 
 #search-icon {
   position: relative;
-  width: 2.5em;
-  right: 26.5em;
-  top: 0.9em;
+  width: 1.5em;
+  right: 23.5em;
+  top: 0.5em;
 }
 
 #channel-img {
