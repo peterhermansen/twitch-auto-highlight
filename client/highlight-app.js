@@ -18,7 +18,7 @@ export default class HighlightApp extends React.Component {
   }
 
   componentDidMount() {
-    let intervalID = setInterval(this.fetchHighlights, 6000)
+    let intervalID = setInterval(this.fetchHighlights, 100)
     this.setState({intervalID: intervalID})
   }
 
@@ -28,7 +28,7 @@ export default class HighlightApp extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.fetchHighlights, 6000)
+    let intervalID = setInterval(this.fetchHighlights, 100)
     this.setState({intervalID: intervalID})
   }
 
