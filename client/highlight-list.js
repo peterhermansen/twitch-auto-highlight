@@ -13,12 +13,14 @@ export default function HighlightList({ highlights }) {
 
 function renderDiv(streamArray, iterator) {
 
+  const cleanDate = dateFormat(streamArray[0].date, 'fullDate')
+
   function renderHighlight(highlight) {
     return <div id={highlight._id} key={highlight._id}></div>
   }
 
   return <div id={streamArray[0].vod} key={iterator}>
-    <h3>{streamArray[0].channel + ' - ' + streamArray[0].date}</h3>
+    <h3>{streamArray[0].channel + ' - ' + cleanDate}</h3>
     {streamArray.map(renderHighlight)}
   </div>
 }
