@@ -33,33 +33,22 @@ export default class HighlightApp extends React.Component {
   async fetchHighlights() {
     let channel = this.props.channel
     if (channel) channel = channel.toLowerCase()
-    let highlightArray = await fetch('http://localhost:3000/highlights',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          channel
-        })
-      }
-    )
-
+    let highlightArray = await fetch('http://localhost:3000/highlights', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({channel})
+    })
     highlightArray = await highlightArray.json()
 
     if (this.state.highlightArray[0] === undefined || highlightArray[0] === undefined) {
       highlightArray = highlightSort(highlightArray)
-      await this.setState({
-        highlightArray: highlightArray
-      })
+      await this.setState({highlightArray: highlightArray})
       this.state.highlightArray.map(highlightEmbed)
     }
 
     else if (highlightArray[0].vod !== this.state.highlightArray[0][0].vod) {
       highlightArray = highlightSort(highlightArray)
-      await this.setState({
-        highlightArray: highlightArray
-      })
+      await this.setState({highlightArray: highlightArray})
       this.state.highlightArray.map(highlightEmbed)
     }
   }
