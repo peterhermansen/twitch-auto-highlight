@@ -6,12 +6,16 @@ export default class SearchApp extends React.Component {
     super()
     this.state = {searchValue: ''}
 
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleNewHash = this.handleNewHash.bind(this)
   }
 
   componentDidMount() {
-    window.addEventListener('hashchange', this.handleNewHash, false)
+    this.setState({searchValue: window.location.hash.slice(1)})
+    window.addEventListener('hashchange', this.handleNewHash)
+  }
+
+  handleNewHash() {
+    this.setState({searchValue: window.location.hash.slice(1)})
   }
 
   onChange(event) {
@@ -22,20 +26,15 @@ export default class SearchApp extends React.Component {
     if (event.keyCode === 13) window.location.hash = event.target.value
   }
 
-  handleNewHash() {
-    const hash = window.location.hash.slice(1).toLowerCase()
-    this.setState({searchValue: hash})
-  }
-
   render() {
     return (
       <div id="search-div">
         <input id="search-box"
           onKeyDown={this.handleKeyDown}
-          type="text"
-          placeholder="Search Channels"
           value={this.state.searchValue}
           onChange={(value) => this.onChange(value)}
+          type="text"
+          placeholder="Search Channels"
         />
         <img id="search-icon" src="images/search-icon.svg"/>
       </div>
