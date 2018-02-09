@@ -7,19 +7,37 @@ export default class SearchApp extends React.Component {
     super()
     this.state = {
       channelData: {},
-      channelIsStreaming: ''
+      channelIsStreaming: '',
+      searchValue: ''
     }
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleNewHash = this.handleNewHash.bind(this)
     this.fetchChannelData = this.fetchChannelData.bind(this)
   }
 
+  componentDidMount() {
+    window.addEventListener('hashchange', this.handleNewHash, false)
+  }
+
+  onChange(event) {
+    this.setState({
+      searchValue: event.target.value
+    })
+  }
+
   handleKeyDown(event) {
-    const searchQuery = event.target.value.toLowerCase()
     if (event.keyCode === 13) {
-      window.location.hash = searchQuery
-      this.fetchChannelData(searchQuery)
+      window.location.hash = event.target.value
     }
+  }
+
+  handleNewHash() {
+    const hash = window.location.hash.slice(1).toLowerCase()
+    this.setState({
+      searchValue: hash
+    })
+    this.fetchChannelData(hash)
   }
 
   async fetchChannelData(value) {
@@ -46,6 +64,7 @@ export default class SearchApp extends React.Component {
       streamResponse = await streamResponse.json()
       if (streamResponse.stream === null) Object.assign(channelResponse, {channelIsStreaming: false})
       else Object.assign(channelResponse, {channelIsStreaming: true})
+      console.log(channelResponse)
       this.setState({channelData: channelResponse})
     }
 
@@ -60,6 +79,8 @@ export default class SearchApp extends React.Component {
             id="search-box"
             type="text"
             placeholder="Search Channels"
+            value={this.state.searchValue}
+            onChange={(value) => this.onChange(value)}
           />
           <img id="search-icon" src="images/search-icon.svg"/>
         </div>
