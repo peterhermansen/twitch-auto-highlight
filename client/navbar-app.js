@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchApp from './search-app'
+import SidebarApp from './sidebar-app'
 
 export default function NavbarApp() {
   return (
@@ -9,6 +10,7 @@ export default function NavbarApp() {
       </button>
       <h1 id="navbar-title">TWITCH AUTO-HIGHLIGHT</h1>
       <SearchApp />
+      <SidebarApp />
     </div>
   )
 }
