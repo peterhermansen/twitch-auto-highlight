@@ -18,7 +18,7 @@ export default class ChannelApp extends React.Component {
     this.handleNewHash = this.handleNewHash.bind(this)
   }
 
-  async componentWillMount() {
+  componentWillMount() {
     const hash = window.location.hash.slice(1)
     if (hash) {
       this.setState({loading: true})
