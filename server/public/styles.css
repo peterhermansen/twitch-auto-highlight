@@ -1,46 +1,44 @@
 body {
-  margin: auto;
   background-color: rgb(240, 240, 240);
 }
 
-#navbar {
+#navbar-div {
+  height: 55px;
+  text-align: center;
+
+  background-color: rgb(180, 180, 180);
+}
+
+#navbar-menu {
+  position: absolute;
+  left: 0;
+  margin: 16px 20px 21px;
+  padding: 0;
+
   background-color: rgb(180, 180, 180);
 }
 
 #navbar-title {
+  position: absolute;
+  left: 60px;
+  margin: 0;
+  line-height: 55px;
 
   font-family: 'Bungee';
   font-size: 2em;
   letter-spacing: 0.1em;
   color: rgb(250, 250, 250);
-  stroke: black;
   text-shadow:
    -1px -1px 0.05em rgb(90, 47, 147),
     1px -1px 0.05em rgb(90, 47, 147),
     -1px 1px 0.05em rgb(90, 47, 147),
      1px 1px 0.05em rgb(90, 47, 147);
-
-  margin: 0;
-  line-height: 2em;
-  display: inline;
-
 }
 
-#navbar-menu {
-  background-color: rgb(180, 180, 180);
+#search-div {
   position: relative;
-  bottom: 0.65em;
-  margin: 0 1em;
-  padding: 0;
-}
-
-#navbar-menu-icon {
-}
-
-#search {
-  text-align: center;
-  position: relative;
-  top: -3.4em;
+  top: 7px;
+  right: 4px;
 }
 
 #search-box {
@@ -67,10 +65,10 @@ body {
 #search-box:focus {
   outline: none;
   box-shadow:
-    -2px -2px 0.5vw rgb(175, 156, 222),
-    2px -2px 0.5vw rgb(175, 156, 222),
-    -2px 2px 0.5vw rgb(175, 156, 222),
-    2px 2px 0.5vw rgb(175, 156, 222);
+    -1px -1px 0.2vw rgb(175, 156, 222),
+    1px -1px 0.2vw rgb(175, 156, 222),
+    -1px 1px 0.2vw rgb(175, 156, 222),
+    1px 1px 0.2vw rgb(175, 156, 222);
 }
 
 #search-icon {
@@ -80,38 +78,32 @@ body {
   top: 0.5em;
 }
 
+#channel-div {
+  position: relative;
+  top: -4em;
+}
+
 #channel-img {
-  display: block;
+  display: inline-block;
   margin: 2vw auto 0;
-  border: 0.3em solid rgb(110, 67, 167);
-  border-radius: 1em;
-  width: 10em;
-  box-shadow:
-    -2px -2px 0.5vw rgb(175, 156, 222),
-    2px -2px 0.5vw rgb(175, 156, 222),
-    -2px 2px 0.5vw rgb(175, 156, 222),
-    2px 2px 0.5vw rgb(175, 156, 222);
+  border-radius: 0.3em;
+  background-color: rgb(110, 67, 167);
+  width: 4em;
 }
 
 #channel-name {
+  display: inline-block;
   text-align: center;
-  font-family: 'Bungee';
-  font-size: 4em;
+  font-family: 'Rubik';
+  font-weight: 900;
+  font-style: italic;
+  font-size: 2.5em;
   letter-spacing: 0.1em;
   color: rgb(110, 67, 167);
   margin: 0.5vw;
-  text-shadow:
-    -1px -1px 0.1vw rgb(25, 6, 72),
-    1px -1px 0.1vw rgb(25, 6, 72),
-    -1px 1px 0.1vw rgb(25, 6, 72),
-    1px 1px 0.1vw rgb(25, 6, 72);
 }
 
-#channel-div {
-  text-align: center;
-}
-
-#monitor {
+#channel-monitor {
   font-size: 2em;
   color: white;
   font-style: 'Rubik';
