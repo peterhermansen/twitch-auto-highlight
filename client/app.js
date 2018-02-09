@@ -1,6 +1,6 @@
 import React from 'react'
 import NavbarApp from './navbar-app'
-import SearchApp from './search-app'
+import ChannelApp from './channel-app'
 
 export default class App extends React.Component {
 
@@ -8,7 +8,7 @@ export default class App extends React.Component {
     return (
       <div>
         <NavbarApp />
-        <SearchApp />
+        <ChannelApp />
       </div>
     )
   }
