@@ -47,7 +47,7 @@ export default class HighlightApp extends React.Component {
 
     highlightArray = await highlightArray.json()
 
-    if (this.state.highlightArray[0] === undefined) {
+    if (this.state.highlightArray[0] === undefined || highlightArray[0] === undefined) {
       highlightArray = highlightSort(highlightArray)
       await this.setState({
         highlightArray: highlightArray
