@@ -56,7 +56,7 @@ export default class ChannelApp extends React.Component {
           <button
             onClick={this.handleClick}
             type="button"
-            id="monitor"
+            id="channel-monitor"
           >{this.state.monitorText}</button>
         </div>
         <HighlightApp channel={this.state.name}/>
