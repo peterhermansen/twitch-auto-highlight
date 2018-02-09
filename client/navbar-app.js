@@ -1,4 +1,5 @@
 import React from 'react'
+import SidebarApp from './sidebar-app'
 
 export default class NavbarApp extends React.Component {
   render() {
