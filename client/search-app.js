@@ -15,8 +15,10 @@ export default class SearchApp extends React.Component {
   }
 
   handleKeyDown(event) {
+    const searchQuery = event.target.value.toLowerCase()
     if (event.keyCode === 13) {
-      this.fetchChannelData(event.target.value.toLowerCase())
+      window.location.hash = searchQuery
+      this.fetchChannelData(searchQuery)
     }
   }
 
@@ -54,7 +56,6 @@ export default class SearchApp extends React.Component {
       <div id="search-div">
         <div id="search">
           <input
-            onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
             id="search-box"
             type="text"
