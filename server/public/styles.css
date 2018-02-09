@@ -38,7 +38,9 @@ body {
 #search-div {
   position: relative;
   top: 7px;
-  right: 4px;
+  left: 4px;
+  width: 400px;
+  margin: 0 auto;
 }
 
 #search-box {
@@ -79,8 +81,7 @@ body {
 }
 
 #channel-div {
-  position: relative;
-  top: -4em;
+
 }
 
 #channel-img {
