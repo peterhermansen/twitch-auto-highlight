@@ -1,7 +1,7 @@
 import React from 'react'
-import HighlightList from './highlight-list'
+import HighlightDivs from './highlight-divs'
 import highlightEmbed from './highlight-embed'
-import highlightSort from './highlight-sort'
+import highlightFetch from './highlight-fetch'
 
 export default class HighlightApp extends React.Component {
 
@@ -12,11 +12,11 @@ export default class HighlightApp extends React.Component {
       intervalID: ''
     }
 
-    this.fetchHighlights = this.fetchHighlights.bind(this)
+    this.getHighlights = this.getHighlights.bind(this)
   }
 
   componentDidMount() {
-    let intervalID = setInterval(this.fetchHighlights, 100)
+    let intervalID = setInterval(this.getHighlights, 100)
     this.setState({intervalID: intervalID})
   }
 
@@ -26,28 +26,13 @@ export default class HighlightApp extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.fetchHighlights, 100)
+    let intervalID = setInterval(this.getHighlights, 100)
     this.setState({intervalID: intervalID})
   }
 
-  async fetchHighlights() {
-    let channel = this.props.channel
-    if (channel) channel = channel.toLowerCase()
-    let highlightArray = await fetch('http://localhost:3000/highlights', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({channel})
-    })
-    highlightArray = await highlightArray.json()
-
-    if (this.state.highlightArray[0] === undefined || highlightArray[0] === undefined) {
-      highlightArray = highlightSort(highlightArray)
-      await this.setState({highlightArray: highlightArray})
-      this.state.highlightArray.map(highlightEmbed)
-    }
-
-    else if (highlightArray[0].vod !== this.state.highlightArray[0][0].vod) {
-      highlightArray = highlightSort(highlightArray)
+  async getHighlights() {
+    const highlightArray = await highlightFetch(this.state.highlightArray)
+    if (highlightArray) {
       await this.setState({highlightArray: highlightArray})
       this.state.highlightArray.map(highlightEmbed)
     }
@@ -55,7 +40,7 @@ export default class HighlightApp extends React.Component {
 
   render() {
     return (
-      <HighlightList highlights={ this.state.highlightArray }/>
+      <HighlightDivs highlights={ this.state.highlightArray }/>
     )
   }
 }
