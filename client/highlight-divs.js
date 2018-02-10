@@ -1,7 +1,9 @@
 import React from 'react'
 import dateFormat from 'dateformat'
 
-export default function HighlightList({ highlights }) {
+export default function HighlightDivs({ highlights }) {
+  console.log(highlights)
+
   return (
 
     <div id="highlights">
