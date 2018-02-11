@@ -3,7 +3,7 @@ import React from 'react'
 export default function SidebarDivs({ channelListData }) {
 
   return (
-    <div className="sidebar-channels-div">
+    <div id="sidebar-channels-div">
       <p id="sidebar-title">Followed Channels</p>
       {channelListData.map(renderDiv)}
     </div>
