@@ -27,8 +27,6 @@ export default class HighlightDivs extends React.Component {
     const cleanDate = dateFormat(streamArray[0].date, 'fullDate')
 
     function renderHighlight(highlight, vod) {
-      console.log(highlight.vod)
-      console.log(vod)
       if (!highlight || highlight.vod !== streamArray[0].vod) return null
       return <div id={highlight._id} key={highlight._id} className="highlight-clip"></div>
     }
