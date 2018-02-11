@@ -19,18 +19,10 @@ export default async function channelFetch(value) {
   if (!channelResponse.data) {
     return {
       display_name: '',
-      profile_image_url: '',
-      channelIsStreaming: ''
+      profile_image_url: ''
     }
   }
 
-  else {
-    channelResponse = channelResponse.data[0]
-    let streamResponse = await fetch(('https://api.twitch.tv/kraken/streams/' + channelResponse.id), fetchInit)
-    streamResponse = await streamResponse.json()
-    if (streamResponse.stream === null) Object.assign(channelResponse, {channelIsStreaming: false})
-    else Object.assign(channelResponse, {channelIsStreaming: true})
-    return channelResponse
-  }
+  return channelResponse.data[0]
 
 }

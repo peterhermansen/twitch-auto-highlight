@@ -11,8 +11,7 @@ export default class ChannelApp extends React.Component {
       loading: false,
       channelData: {},
       name: '',
-      image: '',
-      monitorText: ''
+      image: ''
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -33,12 +32,10 @@ export default class ChannelApp extends React.Component {
 
   async handleNewHash() {
     const channelData = await channelFetch(window.location.hash.slice(1).toLowerCase())
-    const monitorText = (channelData.channelIsStreaming) ? 'MONITOR' : 'OFFLINE'
     this.setState({
       channelData: channelData,
       name: channelData.display_name,
       image: channelData.profile_image_url,
-      monitorText: monitorText,
       loading: false
     })
   }
@@ -60,12 +57,11 @@ export default class ChannelApp extends React.Component {
         <div id="channel-div">
           <img id="channel-img" src={this.state.image}/>
           <p id="channel-name">{this.state.name.toUpperCase()}</p>
-          <button
+          <button id="channel-monitor"
             onClick={this.handleClick}
             type="button"
-            id="channel-monitor"
           >
-            {this.state.monitorText}
+            MONITOR
           </button>
         </div>
         <HighlightApp channel={this.state.name}/>
