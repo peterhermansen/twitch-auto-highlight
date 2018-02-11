@@ -1,6 +1,5 @@
 import React from 'react'
 import HighlightDivs from './highlight-divs'
-import highlightEmbed from './highlight-embed'
 import highlightFetch from './highlight-fetch'
 
 export default class HighlightApp extends React.Component {
@@ -34,13 +33,14 @@ export default class HighlightApp extends React.Component {
     const highlightArray = await highlightFetch(this.state.highlightArray)
     if (highlightArray) {
       await this.setState({highlightArray: highlightArray})
-      this.state.highlightArray.map(highlightEmbed)
     }
   }
 
   render() {
     return (
-      <HighlightDivs highlights={ this.state.highlightArray }/>
+      <HighlightDivs
+        highlights={ this.state.highlightArray }
+      />
     )
   }
 }
