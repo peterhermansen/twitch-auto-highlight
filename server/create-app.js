@@ -3,10 +3,9 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const chatGateway = require('./chat-gateway')
 
-function createApp(gateway) {
+function createApp(highlights, channels) {
 
   const app = express()
-  const highlights = gateway
 
   app
     .use(express.static(path.join(__dirname, 'public')))
@@ -23,8 +22,13 @@ function createApp(gateway) {
     })
 
     .get('/channels', async (req, res) => {
-      const channelList = await highlights.findChannels()
+      const channelList = await channels.findChannels()
       res.send(channelList)
+    })
+
+    .post('/channels', async (req, res) => {
+      const channel = req.body.channelData.display_name.toLowerCase()
+      await channels.addChannel(channel)
     })
 
   return app
