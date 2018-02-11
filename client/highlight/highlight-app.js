@@ -5,8 +5,8 @@ import highlightFetch from './highlight-fetch'
 
 export default class HighlightApp extends React.Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       highlightArray: [],
       intervalID: ''
@@ -24,7 +24,7 @@ export default class HighlightApp extends React.Component {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
     let intervalID = setInterval(this.getHighlights, 100)
     this.setState({intervalID: intervalID})
