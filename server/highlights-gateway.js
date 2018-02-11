@@ -15,15 +15,7 @@ module.exports = function highlightsGateway(collection) {
         const highlightList = await collection.find({}).sort({date: -1}).toArray()
         return highlightList
       }
-    },
-
-    async findChannels() {
-      const channelList = await collection.findOne({channelList: []})
-      if (!channelList) {
-        await collection.insertOne({channelList: []})
-        return {channelList: []}
-      }
-      return channelList
     }
+
   }
 }
