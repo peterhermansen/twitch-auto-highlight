@@ -1,6 +1,7 @@
 import React from 'react'
 import HighlightApp from '../highlight/highlight-app'
 import channelFetch from './channel-fetch'
+import channelMonitor from './channel-monitor'
 
 export default class ChannelApp extends React.Component {
 
@@ -43,20 +44,7 @@ export default class ChannelApp extends React.Component {
   }
 
   handleClick() {
-    const channelData = this.state.channelData
-    if (channelData.channelIsStreaming) {
-      fetch('http://localhost:3000', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({channelData})
-      })
-
-      fetch('http://localhost:3000/channels', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({channelData})
-      })
-    }
+    channelMonitor(this.state.channelData)
   }
 
   render() {
