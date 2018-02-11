@@ -18,8 +18,13 @@ function createApp(gateway) {
     })
 
     .post('/highlights', async (req, res) => {
-      const highlightList = await highlights.find(req.body.channel)
+      const highlightList = await highlights.findHighlights(req.body.channel)
       res.send(highlightList)
+    })
+
+    .get('/channels', async (req, res) => {
+      const channelList = await highlights.findChannels()
+      res.send(channelList)
     })
 
   return app
