@@ -1,5 +1,5 @@
 import React from 'react'
-import HighlightApp from './highlight/highlight-app'
+import HighlightApp from '../highlight/highlight-app'
 import channelFetch from './channel-fetch'
 
 export default class ChannelApp extends React.Component {
