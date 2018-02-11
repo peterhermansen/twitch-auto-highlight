@@ -1,4 +1,5 @@
 import React from 'react'
+import channelFetch from '../channel/channel-fetch'
 
 export default class SidebarApp extends React.Component {
 
@@ -6,6 +7,13 @@ export default class SidebarApp extends React.Component {
     super()
     this.state = {
       channelListData: []
+    }
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.channelList !== this.props.channelList) {
+      const channelListData = await Promise.all(nextProps.channelList.map(channelFetch))
+      await this.setState({channelListData: channelListData})
     }
   }
 
