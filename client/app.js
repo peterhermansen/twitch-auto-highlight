@@ -1,11 +1,15 @@
 import React from 'react'
-import SearchApp from './search-app'
+import NavbarApp from './navbar/navbar-app'
+import ChannelApp from './channel/channel-app'
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <SearchApp />
+      <div>
+        <NavbarApp />
+        <ChannelApp />
+      </div>
     )
   }
 

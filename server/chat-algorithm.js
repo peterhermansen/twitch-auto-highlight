@@ -40,7 +40,7 @@ module.exports = function chatAlgorithm(chatArray, channelData, highlights) {
           increase: currentChat / averageChat
         }
 
-        highlights.create(newHighlight)
+        highlights.createHighlight(newHighlight)
 
       }
     }
