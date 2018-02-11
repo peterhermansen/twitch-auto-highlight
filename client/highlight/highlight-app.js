@@ -38,9 +38,7 @@ export default class HighlightApp extends React.Component {
 
   render() {
     return (
-      <HighlightDivs
-        highlights={ this.state.highlightArray }
-      />
+      <HighlightDivs highlights={ this.state.highlightArray }/>
     )
   }
 }
