@@ -19,7 +19,7 @@ export default class NavbarApp extends React.Component {
       this.setState({sidebarClassName: ''})
       let channelList = await fetch('http://localhost:3000/channels')
       channelList = await channelList.json()
-      if (channelList !== this.state.channelList) {
+      if (channelList.length !== this.state.channelList.length) {
         this.setState({channelList: channelList})
       }
     }
