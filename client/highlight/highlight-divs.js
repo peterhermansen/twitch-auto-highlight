@@ -35,7 +35,9 @@ export default class HighlightDivs extends React.Component {
       <div id={streamArray[0].vod} key={iterator} className="stream-div">
         <button className="highlight-button"
           onClick={ () => this.showHighlights(streamArray[0].vod, this.props.highlights) }>
-          <h3 className="highlight-title">{streamArray[0].channel + ' - ' + cleanDate}</h3>
+          <h3 className="highlight-title">
+            {(streamArray[0].channel + ' - ' + cleanDate).toUpperCase()}
+          </h3>
         </button>
         {this.state.selectedHighlights.map(renderHighlight)}
       </div>
