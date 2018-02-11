@@ -12,9 +12,11 @@ module.exports = function channelsGateway(collection) {
 
     async addChannel(channel) {
       const channelList = await this.findChannels()
-      const newChannelList = channelList
-      newChannelList.push(channel)
-      collection.updateOne({}, {$set: {'channelList': newChannelList}})
+      if (channelList.indexOf(channel) === -1) {
+        const newChannelList = channelList
+        newChannelList.push(channel)
+        collection.updateOne({}, {$set: {'channelList': newChannelList}})
+      }
     }
 
   }
