@@ -2,10 +2,13 @@ body {
   background-color: rgb(240, 240, 240);
 }
 
+.hidden {
+  display: none;
+}
+
 #navbar-div {
   height: 55px;
   text-align: center;
-
   background-color: rgb(180, 180, 180);
 }
 
@@ -14,7 +17,6 @@ body {
   left: 0;
   margin: 16px 20px 21px;
   padding: 0;
-
   background-color: rgb(180, 180, 180);
 }
 
@@ -81,27 +83,29 @@ body {
 }
 
 #channel-div {
-
+  width: 70%;
+  margin: 20px auto;
+  text-align: center;
 }
 
 #channel-img {
-  display: inline-block;
-  margin: 2vw auto 0;
+  display: block;
+  margin: 0 auto;
   border-radius: 0.3em;
   background-color: rgb(110, 67, 167);
   width: 4em;
 }
 
 #channel-name {
-  display: inline-block;
+  display: block;
   text-align: center;
   font-family: 'Rubik';
   font-weight: 900;
   font-style: italic;
   font-size: 2.5em;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.01em;
   color: rgb(110, 67, 167);
-  margin: 0.5vw;
+  margin: 0;
 }
 
 #channel-monitor {
@@ -109,7 +113,87 @@ body {
   color: white;
   font-style: 'Rubik';
   border-radius: 0.2em;
+  border: none;
   background-color: rgb(110, 67, 167);
   border-style: 1vw solid gray;
   padding: 0.1vw 1vw;
+}
+
+#sidebar-div {
+  height: calc(100vh - 55px);
+  margin-top: 15px;
+  width: 250px;
+
+  background-color: rgb(120, 120, 120);
+}
+
+#sidebar-title {
+  margin: 0;
+  padding: 10px;
+
+  font-family: 'Rubik';
+  font-weight: 600;
+}
+
+#sidebar-channels-div {
+
+}
+
+.sidebar-channel-button {
+  position: relative;
+  width: 240px;
+  height: 40px;
+  padding: 0;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.sidebar-channel-button:hover {
+  background-color: rgb(150, 150, 150)
+}
+
+.sidebar-channel-img {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  display: inline-block;
+  width: 30px;
+  border-radius: 2px;
+}
+
+.sidebar-channel-name {
+  position: absolute;
+  left: 40px;
+  bottom: 10px;
+  display: inline-block;
+
+  font-family: 'Rubik';
+  font-weight: 600;
+  color: white;
+  text-shadow:
+   -1px -1px 0.05em rgb(90, 47, 147),
+    1px -1px 0.05em rgb(90, 47, 147),
+    -1px 1px 0.05em rgb(90, 47, 147),
+     1px 1px 0.05em rgb(90, 47, 147);
+}
+
+#highlights {
+  text-align: center;
+}
+
+.highlight-button {
+  margin: 5px auto;
+  display: block;
+  border-radius: 0.5em;
+  border: 2px solid rgb(110, 67, 167);
+  background-color: white;
+  font-family: 'Rubik';
+}
+
+.highlight-clip {
+  display: inline-block;
+  margin: 5px 5px 0;
 }
