@@ -11,13 +11,6 @@ export default class SidebarApp extends React.Component {
     }
   }
 
-  async componentWillReceiveProps(nextProps) {
-    if (nextProps.channelList !== this.props.channelList) {
-      const channelListData = await Promise.all(nextProps.channelList.map(channelFetch))
-      await this.setState({channelListData: channelListData})
-    }
-  }
-
   render() {
     return (
       <div id="sidebar-div" className={this.props.className}>
