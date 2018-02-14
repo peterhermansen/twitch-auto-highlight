@@ -21,7 +21,8 @@ export default class HighlightApp extends React.Component {
 
     window.addEventListener('hashchange', this.handleNewHash)
 
-    socket.once('highlightArrayUpdate', (highlightArray) => {
+    socket.on('highlightArrayUpdate', (highlightArray) => {
+      console.log(highlightArray)
       highlightArray = highlightSort(highlightArray)
       this.setState({highlightArray: highlightArray})
     })
