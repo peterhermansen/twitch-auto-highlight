@@ -12,10 +12,12 @@ export default class HighlightApp extends React.Component {
     }
 
     this.updateHighlightArray = this.updateHighlightArray.bind(this)
+    this.handleNewHash = this.handleNewHash.bind(this)
   }
 
   async componentDidMount() {
     this.updateHighlightArray()
+    window.addEventListener('hashchange', this.handleNewHash)
   }
 
   handleNewHash() {
