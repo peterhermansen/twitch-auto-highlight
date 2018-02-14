@@ -3,10 +3,9 @@ function createSocket(server, eventEmitter) {
   const io = require('socket.io').listen(server)
 
   io.on('connection', (socket) => {
-    socket
-      .on('updateChannelList', (channelList) => {
-        io.emit('updateChannelList', channelList)
-      })
+    eventEmitter.on('updateChannelList', (channelList) => {
+      io.emit('updateChannelList', channelList)
+    })
   })
 }
 
