@@ -26,10 +26,7 @@ export default class NavbarApp extends React.Component {
         </button>
         <h1 id="navbar-title">TWITCH AUTO-HIGHLIGHT</h1>
         <SearchApp />
-        <SidebarApp
-          className={this.state.sidebarClassName}
-          channelList={this.state.channelList}
-        />
+        <SidebarApp className={this.state.sidebarClassName}/>
       </div>
     )
   }
