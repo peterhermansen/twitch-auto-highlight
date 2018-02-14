@@ -1,7 +1,7 @@
 import React from 'react'
 import channelFetch from '../channel/channel-fetch'
 import SidebarDivs from './sidebar-divs'
-import { socket } from '../server.js'
+import { socket } from '../socket.js'
 
 export default class SidebarApp extends React.Component {
 
