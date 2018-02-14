@@ -25,7 +25,7 @@ export default class HighlightApp extends React.Component {
   }
 
   async updateHighlightArray() {
-    const highlightArray = await highlightFetch(this.state.highlightArray)
+    const highlightArray = await highlightFetch(this.state.channel)
     if (highlightArray) await this.setState({highlightArray: highlightArray})
   }
 
