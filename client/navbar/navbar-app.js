@@ -6,10 +6,7 @@ export default class NavbarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      sidebarClassName: 'hidden',
-      channelList: []
-    }
+    this.state = {sidebarClassName: 'hidden'}
 
     this.handleClick = this.handleClick.bind(this)
   }
