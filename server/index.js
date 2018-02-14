@@ -15,9 +15,8 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
   const channels = db.collection('channels')
 
   const app = createApp(
-    highlightsGateway(highlights),
-    channelsGateway(channels),
-    eventEmitter
+    highlightsGateway(highlights, eventEmitter),
+    channelsGateway(channels, eventEmitter)
   )
 
   const server = app.listen(process.env.PORT, () => {
