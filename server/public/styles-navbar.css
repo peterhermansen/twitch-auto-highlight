@@ -1,0 +1,30 @@
+#navbar-div {
+  height: 55px;
+  text-align: center;
+  background-color: rgb(180, 180, 180);
+}
+
+#navbar-menu {
+  position: absolute;
+  left: 0;
+  margin: 16px 20px 21px;
+  padding: 0;
+  background-color: rgb(180, 180, 180);
+}
+
+#navbar-title {
+  position: absolute;
+  left: 60px;
+  margin: 0;
+  line-height: 55px;
+
+  font-family: 'Bungee';
+  font-size: 2em;
+  letter-spacing: 0.1em;
+  color: rgb(250, 250, 250);
+  text-shadow:
+   -1px -1px 0.05em rgb(90, 47, 147),
+    1px -1px 0.05em rgb(90, 47, 147),
+    -1px 1px 0.05em rgb(90, 47, 147),
+     1px 1px 0.05em rgb(90, 47, 147);
+}

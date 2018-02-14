@@ -1,0 +1,36 @@
+#channel-div {
+  width: 70%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+#channel-img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 0.3em;
+  background-color: rgb(110, 67, 167);
+  width: 4em;
+}
+
+#channel-name {
+  display: block;
+  text-align: center;
+  font-family: 'Rubik';
+  font-weight: 900;
+  font-style: italic;
+  font-size: 2.5em;
+  letter-spacing: 0.01em;
+  color: rgb(110, 67, 167);
+  margin: 0;
+}
+
+#channel-monitor {
+  font-size: 2em;
+  color: white;
+  font-style: 'Rubik';
+  border-radius: 0.2em;
+  border: none;
+  background-color: rgb(110, 67, 167);
+  border-style: 1vw solid gray;
+  padding: 0.1vw 1vw;
+}

@@ -1,0 +1,17 @@
+#highlights {
+  text-align: center;
+}
+
+.highlight-button {
+  margin: 5px auto;
+  display: block;
+  border-radius: 0.5em;
+  border: 2px solid rgb(110, 67, 167);
+  background-color: white;
+  font-family: 'Rubik';
+}
+
+.highlight-clip {
+  display: inline-block;
+  margin: 5px 5px 0;
+}
