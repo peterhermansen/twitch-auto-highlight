@@ -15,7 +15,8 @@ function channelsGateway(collection, eventEmitter) {
       if (channelList.indexOf(channel) === -1) {
         const newChannelList = channelList
         newChannelList.push(channel)
-        collection.updateOne({}, {$set: {'channelList': newChannelList}})
+        await collection.updateOne({}, {$set: {'channelList': newChannelList}})
+        eventEmitter.emit('updateChannelList', newChannelList)
       }
     }
 
