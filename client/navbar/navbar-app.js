@@ -8,23 +8,29 @@ export default class NavbarApp extends React.Component {
     super()
     this.state = {sidebarClassName: 'hidden'}
 
-    this.handleClick = this.handleClick.bind(this)
+    this.handleMenuClick = this.handleMenuClick.bind(this)
   }
 
-  async handleClick() {
+  handleMenuClick() {
     if (this.state.sidebarClassName) this.setState({sidebarClassName: ''})
     else this.setState({sidebarClassName: 'hidden'})
+  }
+
+  handleTitleClick() {
+    window.location.hash = ''
   }
 
   render() {
     return (
       <div id="navbar-div">
         <button id="navbar-menu-button" className="ui icon button"
-          onClick={this.handleClick}
+          onClick={this.handleMenuClick}
         >
           <i id="navbar-menu-icon" className="large sidebar icon"/>
         </button>
-        <button id="navbar-title-button">
+        <button id="navbar-title-button"
+          onClick={this.handleTitleClick}
+        >
           <h1 id="navbar-title-header">TWITCH AUTO-HIGHLIGHT</h1>
         </button>
         <SearchApp />
