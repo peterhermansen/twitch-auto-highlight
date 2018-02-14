@@ -4,6 +4,8 @@ const { createSocket } = require('./create-socket')
 const { MongoClient } = require('mongodb')
 const highlightsGateway = require('./highlights-gateway')
 const channelsGateway = require('./channels-gateway')
+const EventEmitter = require('events').EventEmitter
+const ee = EventEmitter()
 
 MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
 
