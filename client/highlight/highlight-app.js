@@ -11,11 +11,11 @@ export default class HighlightApp extends React.Component {
       intervalID: ''
     }
 
-    this.getHighlights = this.getHighlights.bind(this)
+    this.updateHighlightArray = this.updateHighlightArray.bind(this)
   }
 
   componentDidMount() {
-    let intervalID = setInterval(this.getHighlights, 100)
+    let intervalID = setInterval(this.updateHighlightArray, 100)
     this.setState({intervalID: intervalID})
   }
 
@@ -25,11 +25,11 @@ export default class HighlightApp extends React.Component {
 
   componentWillReceiveProps() {
     if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.getHighlights, 100)
+    let intervalID = setInterval(this.updateHighlightArray, 100)
     this.setState({intervalID: intervalID})
   }
 
-  async getHighlights() {
+  async updateHighlightArray() {
     const highlightArray = await highlightFetch(this.state.highlightArray)
     if (highlightArray) await this.setState({highlightArray: highlightArray})
   }
