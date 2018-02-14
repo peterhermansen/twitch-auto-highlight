@@ -4,6 +4,13 @@ function createSocket(server, eventEmitter, highlights, channels) {
 
   io.on('connection', (socket) => {
 
+    async function emitInitialChannelList() {
+      const initialChannelList = await channels.findChannels()
+      io.emit('updateChannelList', initialChannelList)
+    }
+
+    emitInitialChannelList()
+
     eventEmitter.on('updateChannelList', (channelList) => {
       io.emit('updateChannelList', channelList)
     })
