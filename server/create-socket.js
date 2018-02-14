@@ -9,3 +9,5 @@ function createSocket(server) {
       })
   })
 }
+
+module.exports = { createSocket }
