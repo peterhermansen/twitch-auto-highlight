@@ -6,9 +6,12 @@ export default class SidebarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      channelListData: []
-    }
+    this.state = {channelListData: []}
+  }
+
+  async updateChannelListData(channelList) {
+    const channelListData = await Promise.all(channelList.map(channelFetch))
+    this.setState({channelListData: channelListData})
   }
 
   render() {
