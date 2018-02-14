@@ -17,6 +17,9 @@ export default class SidebarApp extends React.Component {
     let channelList = await fetch('http://localhost:3000/channels')
     channelList = await channelList.json()
     this.updateChannelListData(channelList)
+    socket.on('updateChannelList', (channelList) => {
+      this.updateChannelList(channelList)
+    })
   }
 
   async updateChannelListData(channelList) {
