@@ -12,15 +12,7 @@ export default class NavbarApp extends React.Component {
   }
 
   async handleClick() {
-    if (this.state.sidebarClassName) {
-      this.setState({sidebarClassName: ''})
-      let channelList = await fetch('http://localhost:3000/channels')
-      channelList = await channelList.json()
-      if (channelList.length !== this.state.channelList.length) {
-        this.setState({channelList: channelList})
-      }
-    }
-
+    if (this.state.sidebarClassName) this.setState({sidebarClassName: ''})
     else this.setState({sidebarClassName: 'hidden'})
   }
 
