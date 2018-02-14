@@ -16,11 +16,6 @@ function createApp(highlights, channels) {
       res.send('Monitoring Stream!')
     })
 
-    .get('/channels', async (req, res) => {
-      const channelList = await channels.findChannels()
-      res.send(channelList)
-    })
-
     .post('/channels', async (req, res) => {
       const channel = req.body.channelData.display_name.toLowerCase()
       await channels.addChannel(channel)
