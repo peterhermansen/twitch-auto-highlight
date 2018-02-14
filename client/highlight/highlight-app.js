@@ -28,7 +28,7 @@ export default class HighlightApp extends React.Component {
   }
 
   async handleNewHash() {
-    await this.setState({channel: window.location.hash.slice(1)})
+    await this.setState({channel: window.location.hash.slice(1).toLowerCase()})
     socket.emit('highlightArrayChange', this.state.channel)
   }
 
