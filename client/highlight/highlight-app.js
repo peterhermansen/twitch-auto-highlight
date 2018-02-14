@@ -1,6 +1,7 @@
 import React from 'react'
 import HighlightDivs from './highlight-divs'
 import highlightFetch from './highlight-fetch'
+import { socket } from '../socket.js'
 
 export default class HighlightApp extends React.Component {
 
@@ -20,8 +21,9 @@ export default class HighlightApp extends React.Component {
     window.addEventListener('hashchange', this.handleNewHash)
   }
 
-  handleNewHash() {
-    this.setState({channel: window.location.hash.slice(1)})
+  async handleNewHash() {
+    await this.setState({channel: window.location.hash.slice(1)})
+    socket.emit('highlightListChange', this.state.channel)
   }
 
   async updateHighlightArray() {
