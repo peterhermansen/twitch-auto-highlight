@@ -47,4 +47,4 @@ function chatAlgorithm(chatArray, channelData, highlights) {
   }
 }
 
-moduel.exports = { chatAlgorithm }
+module.exports = { chatAlgorithm }

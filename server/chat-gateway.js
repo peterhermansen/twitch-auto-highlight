@@ -1,6 +1,6 @@
 require('dotenv/config')
 const tmi = require('tmi.js')
-const chatAlgorithm = require('./chat-algorithm.js')
+const { chatAlgorithm } = require('./chat-algorithm.js')
 
 function chatGateway(channelData, highlights) {
   return {
