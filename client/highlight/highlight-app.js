@@ -6,13 +6,20 @@ export default class HighlightApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {highlightArray: []}
+    this.state = {
+      highlightArray: [],
+      channel: ''
+    }
 
     this.updateHighlightArray = this.updateHighlightArray.bind(this)
   }
 
   async componentDidMount() {
     this.updateHighlightArray()
+  }
+
+  handleNewHash() {
+    this.setState({channel: window.location.hash.slice(1)})
   }
 
   async updateHighlightArray() {
