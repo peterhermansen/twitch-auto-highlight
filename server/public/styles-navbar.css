@@ -5,21 +5,21 @@
   background-color: #6441a4;
 }
 
-#navbar-menu {
+#navbar-menu-button {
   position: absolute;
   left: 0;
-  margin: 12px 16px 21px;
+  margin: 13px;
   padding: 4px 4px 7px;
 
   border-radius: 2px;
   background-color: #6441a4;
 }
 
-#navbar-menu:hover {
+#navbar-menu-button:hover {
   background-color: #7651ba;
 }
 
-#navbar-menu:active {
+#navbar-menu-button:active {
   border: 1px solid #9977d8;
 }
 
@@ -27,12 +27,22 @@
   color: #fff
 }
 
-#navbar-title {
+#navbar-title-button {
   position: absolute;
+  top: 13px;
   left: 60px;
   margin: 0;
-  line-height: 54px;
+  padding: 0;
+  height: 30px;
 
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+#navbar-title-header {
+  line-height: 30px;
   font-family: 'Bungee';
   font-size: 1.5em;
   letter-spacing: 0.1em;
