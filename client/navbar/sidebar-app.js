@@ -1,21 +1,26 @@
 import React from 'react'
 import channelFetch from '../channel/channel-fetch'
 import SidebarDivs from './sidebar-divs'
+import { socket } from '../socket.js'
 
 export default class SidebarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      channelListData: []
-    }
+    this.state = {channelListData: []}
+
+    this.updateChannelListData = this.updateChannelListData.bind(this)
   }
 
-  async componentWillReceiveProps(nextProps) {
-    if (nextProps.channelList !== this.props.channelList) {
-      const channelListData = await Promise.all(nextProps.channelList.map(channelFetch))
-      await this.setState({channelListData: channelListData})
-    }
+  async componentDidMount() {
+    socket.on('updateChannelList', (channelList) => {
+      this.updateChannelListData(channelList)
+    })
+  }
+
+  async updateChannelListData(channelList) {
+    const channelListData = await Promise.all(channelList.map(channelFetch))
+    this.setState({channelListData: channelListData})
   }
 
   render() {

@@ -1,4 +1,4 @@
-module.exports = function channelsGateway(collection) {
+function channelsGateway(collection, eventEmitter) {
   return {
 
     async findChannels() {
@@ -15,9 +15,12 @@ module.exports = function channelsGateway(collection) {
       if (channelList.indexOf(channel) === -1) {
         const newChannelList = channelList
         newChannelList.push(channel)
-        collection.updateOne({}, {$set: {'channelList': newChannelList}})
+        await collection.updateOne({}, {$set: {'channelList': newChannelList}})
+        eventEmitter.emit('updateChannelList', newChannelList)
       }
     }
 
   }
 }
+
+module.exports = { channelsGateway }

@@ -6,24 +6,13 @@ export default class NavbarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      sidebarClassName: 'hidden',
-      channelList: []
-    }
+    this.state = {sidebarClassName: 'hidden'}
 
     this.handleClick = this.handleClick.bind(this)
   }
 
   async handleClick() {
-    if (this.state.sidebarClassName) {
-      this.setState({sidebarClassName: ''})
-      let channelList = await fetch('http://localhost:3000/channels')
-      channelList = await channelList.json()
-      if (channelList.length !== this.state.channelList.length) {
-        this.setState({channelList: channelList})
-      }
-    }
-
+    if (this.state.sidebarClassName) this.setState({sidebarClassName: ''})
     else this.setState({sidebarClassName: 'hidden'})
   }
 
@@ -37,10 +26,7 @@ export default class NavbarApp extends React.Component {
         </button>
         <h1 id="navbar-title">TWITCH AUTO-HIGHLIGHT</h1>
         <SearchApp />
-        <SidebarApp
-          className={this.state.sidebarClassName}
-          channelList={this.state.channelList}
-        />
+        <SidebarApp className={this.state.sidebarClassName}/>
       </div>
     )
   }

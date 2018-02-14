@@ -1,6 +1,7 @@
 import React from 'react'
 import HighlightDivs from './highlight-divs'
-import highlightFetch from './highlight-fetch'
+import highlightSort from './highlight-sort'
+import { socket } from '../socket.js'
 
 export default class HighlightApp extends React.Component {
 
@@ -8,32 +9,27 @@ export default class HighlightApp extends React.Component {
     super()
     this.state = {
       highlightArray: [],
-      intervalID: ''
+      channel: ''
     }
 
-    this.getHighlights = this.getHighlights.bind(this)
+    this.handleNewHash = this.handleNewHash.bind(this)
   }
 
-  componentDidMount() {
-    let intervalID = setInterval(this.getHighlights, 100)
-    this.setState({intervalID: intervalID})
+  async componentDidMount() {
+
+    this.handleNewHash()
+
+    window.addEventListener('hashchange', this.handleNewHash)
+
+    socket.on('highlightArrayUpdate', (highlightArray) => {
+      highlightArray = highlightSort(highlightArray)
+      this.setState({highlightArray: highlightArray})
+    })
   }
 
-  componentWillUnmount() {
-    if (this.state.intervalID) clearInterval(this.state.intervalID)
-  }
-
-  componentWillReceiveProps() {
-    if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.getHighlights, 100)
-    this.setState({intervalID: intervalID})
-  }
-
-  async getHighlights() {
-    const highlightArray = await highlightFetch(this.state.highlightArray)
-    if (highlightArray) {
-      await this.setState({highlightArray: highlightArray})
-    }
+  async handleNewHash() {
+    await this.setState({channel: window.location.hash.slice(1).toLowerCase()})
+    socket.emit('highlightArrayChange', this.state.channel)
   }
 
   render() {

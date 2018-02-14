@@ -1,5 +1,4 @@
 import React from 'react'
-import HighlightApp from '../highlight/highlight-app'
 import channelFetch from './channel-fetch'
 import channelMonitor from './channel-monitor'
 
@@ -46,25 +45,18 @@ export default class ChannelApp extends React.Component {
 
   render() {
 
-    if (this.state.loading) return null
-
-    if (!this.state.channelData.display_name) {
-      return <HighlightApp channelData={this.props.channelData}/>
-    }
+    if (this.state.loading || !this.state.name) return null
 
     return (
-      <div>
-        <div id="channel-div">
-          <img id="channel-img" src={this.state.image}/>
-          <p id="channel-name">{this.state.name.toUpperCase()}</p>
-          <button id="channel-monitor"
-            onClick={this.handleClick}
-            type="button"
-          >
-            MONITOR
-          </button>
-        </div>
-        <HighlightApp channel={this.state.name}/>
+      <div id="channel-div">
+        <img id="channel-img" src={this.state.image}/>
+        <p id="channel-name">{this.state.name.toUpperCase()}</p>
+        <button id="channel-monitor"
+          onClick={this.handleClick}
+          type="button"
+        >
+          MONITOR
+        </button>
       </div>
     )
   }

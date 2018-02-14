@@ -1,6 +1,7 @@
 import React from 'react'
 import NavbarApp from './navbar/navbar-app'
 import ChannelApp from './channel/channel-app'
+import HighlightApp from './highlight/highlight-app'
 
 export default class App extends React.Component {
 
@@ -9,6 +10,7 @@ export default class App extends React.Component {
       <div>
         <NavbarApp />
         <ChannelApp />
+        <HighlightApp />
       </div>
     )
   }
