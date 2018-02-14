@@ -1,5 +1,6 @@
 require('dotenv/config')
 const { createApp } = require('./create-app')
+const { createSocket } = require('./create-socket')
 const { MongoClient } = require('mongodb')
 const highlightsGateway = require('./highlights-gateway')
 const channelsGateway = require('./channels-gateway')
