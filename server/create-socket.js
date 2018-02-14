@@ -1,4 +1,4 @@
-function createSocket(server, eventEmitter, highlights) {
+function createSocket(server, eventEmitter, highlights, channels) {
 
   const io = require('socket.io').listen(server)
 

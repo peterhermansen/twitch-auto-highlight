@@ -26,7 +26,8 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
   createSocket(
     server,
     eventEmitter,
-    highlightsGateway(highlights, eventEmitter)
+    highlightsGateway(highlights, eventEmitter),
+    channelsGateway(channels, eventEmitter)
   )
 
 })
