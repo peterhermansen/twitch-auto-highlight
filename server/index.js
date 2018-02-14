@@ -23,6 +23,10 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
     console.log('Listening on ' + process.env.PORT)
   })
 
-  createSocket(server, eventEmitter)
+  createSocket(
+    server,
+    eventEmitter,
+    highlightsGateway(highlights, eventEmitter)
+  )
 
 })
