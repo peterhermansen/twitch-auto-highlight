@@ -47,10 +47,6 @@ export default class ChannelApp extends React.Component {
 
     if (this.state.loading) return null
 
-    if (!this.state.channelData.display_name) {
-      return <HighlightApp channelData={this.props.channelData}/>
-    }
-
     return (
       <div id="channel-div">
         <img id="channel-img" src={this.state.image}/>
