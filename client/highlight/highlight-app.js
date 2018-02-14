@@ -1,6 +1,6 @@
 import React from 'react'
 import HighlightDivs from './highlight-divs'
-import highlightFetch from './highlight-fetch'
+import highlightSort from './highlight-sort'
 import { socket } from '../socket.js'
 
 export default class HighlightApp extends React.Component {
@@ -12,23 +12,24 @@ export default class HighlightApp extends React.Component {
       channel: ''
     }
 
-    this.updateHighlightArray = this.updateHighlightArray.bind(this)
     this.handleNewHash = this.handleNewHash.bind(this)
   }
 
   async componentDidMount() {
-    this.updateHighlightArray()
+
+    this.handleNewHash()
+
     window.addEventListener('hashchange', this.handleNewHash)
+
+    socket.once('highlightArrayUpdate', (highlightArray) => {
+      highlightArray = highlightSort(highlightArray)
+      this.setState({highlightArray: highlightArray})
+    })
   }
 
   async handleNewHash() {
     await this.setState({channel: window.location.hash.slice(1)})
-    socket.emit('highlightListChange', this.state.channel)
-  }
-
-  async updateHighlightArray() {
-    const highlightArray = await highlightFetch(this.state.channel)
-    if (highlightArray) await this.setState({highlightArray: highlightArray})
+    socket.emit('highlightArrayChange', this.state.channel)
   }
 
   render() {
