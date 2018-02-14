@@ -10,15 +10,15 @@ export default class SidebarApp extends React.Component {
     super()
     this.state = {channelListData: []}
 
-    this.updateChannelList = this.updateChannelList.bind(this)
+    this.updateChannelListData = this.updateChannelListData.bind(this)
   }
 
   async componentDidMount() {
     let channelList = await fetch('http://localhost:3000/channels')
     channelList = await channelList.json()
     this.updateChannelListData(channelList)
-    socket.on('updateChannelList', (channelList) => {
-      this.updateChannelList(channelList)
+    socket.once('updateChannelList', (channelList) => {
+      this.updateChannelListData(channelList)
     })
   }
 
