@@ -31,9 +31,7 @@ export default class HighlightApp extends React.Component {
 
   async getHighlights() {
     const highlightArray = await highlightFetch(this.state.highlightArray)
-    if (highlightArray) {
-      await this.setState({highlightArray: highlightArray})
-    }
+    if (highlightArray) await this.setState({highlightArray: highlightArray})
   }
 
   render() {
