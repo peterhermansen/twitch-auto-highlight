@@ -11,6 +11,10 @@ export default class HighlightApp extends React.Component {
     this.updateHighlightArray = this.updateHighlightArray.bind(this)
   }
 
+  async componentDidMount() {
+    this.updateHighlightArray()
+  }
+
   async updateHighlightArray() {
     const highlightArray = await highlightFetch(this.state.highlightArray)
     if (highlightArray) await this.setState({highlightArray: highlightArray})
