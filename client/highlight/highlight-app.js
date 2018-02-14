@@ -6,27 +6,9 @@ export default class HighlightApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      highlightArray: [],
-      intervalID: ''
-    }
+    this.state = {highlightArray: []}
 
     this.updateHighlightArray = this.updateHighlightArray.bind(this)
-  }
-
-  componentDidMount() {
-    let intervalID = setInterval(this.updateHighlightArray, 100)
-    this.setState({intervalID: intervalID})
-  }
-
-  componentWillUnmount() {
-    if (this.state.intervalID) clearInterval(this.state.intervalID)
-  }
-
-  componentWillReceiveProps() {
-    if (this.state.intervalID) clearInterval(this.state.intervalID)
-    let intervalID = setInterval(this.updateHighlightArray, 100)
-    this.setState({intervalID: intervalID})
   }
 
   async updateHighlightArray() {
