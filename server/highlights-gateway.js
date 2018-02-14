@@ -1,4 +1,4 @@
-module.exports = function highlightsGateway(collection) {
+function highlightsGateway(collection) {
   return {
 
     async createHighlight(highlightData) {
@@ -19,3 +19,5 @@ module.exports = function highlightsGateway(collection) {
 
   }
 }
+
+module.exports = { highlightsGateway }

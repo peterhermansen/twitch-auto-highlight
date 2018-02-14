@@ -8,7 +8,7 @@ const myInit = {
   }
 }
 
-module.exports = function chatAlgorithm(chatArray, channelData, highlights) {
+function chatAlgorithm(chatArray, channelData, highlights) {
   return {
     async weightedAverage() {
       let averageChat = 0
@@ -46,3 +46,5 @@ module.exports = function chatAlgorithm(chatArray, channelData, highlights) {
     }
   }
 }
+
+moduel.exports = { chatAlgorithm }

@@ -2,7 +2,7 @@ require('dotenv/config')
 const tmi = require('tmi.js')
 const chatAlgorithm = require('./chat-algorithm.js')
 
-module.exports = function chatGateway(channelData, highlights) {
+function chatGateway(channelData, highlights) {
   return {
     monitorChat() {
       const chatLog = []
@@ -36,3 +36,5 @@ module.exports = function chatGateway(channelData, highlights) {
     }
   }
 }
+
+module.exports = { chatGateway }

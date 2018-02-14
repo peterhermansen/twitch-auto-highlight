@@ -1,4 +1,4 @@
-module.exports = function channelsGateway(collection) {
+function channelsGateway(collection) {
   return {
 
     async findChannels() {
@@ -21,3 +21,5 @@ module.exports = function channelsGateway(collection) {
 
   }
 }
+
+module.exports = { channelsGateway }
