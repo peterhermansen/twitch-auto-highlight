@@ -1,4 +1,4 @@
-function channelsGateway(collection) {
+function channelsGateway(collection, eventEmitter) {
   return {
 
     async findChannels() {

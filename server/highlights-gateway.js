@@ -1,4 +1,4 @@
-function highlightsGateway(collection) {
+function highlightsGateway(collection, eventEmitter) {
   return {
 
     async createHighlight(highlightData) {
