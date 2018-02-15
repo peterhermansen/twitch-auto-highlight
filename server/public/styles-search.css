@@ -9,6 +9,7 @@
 #search-box {
   width: 20em;
   height: 1.5em;
+  background-color: #f9f9f9;
   border-radius: 0.5em;
   border: 0.1em solid rgb(110, 67, 167);
   font-size: 1.3em;
