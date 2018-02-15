@@ -40,6 +40,7 @@ export default class HighlightDivs extends React.Component {
           </h3>
         </button>
         {this.state.selectedHighlights.map(renderHighlight)}
+        <div className="highlight-bottom-border"></div>
       </div>
     )
   }
