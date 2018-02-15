@@ -2,13 +2,24 @@
   text-align: center;
 }
 
+.highlight-bottom-border {
+  margin: 0 auto;
+  width: 500px;
+  border-bottom: 1px solid #ddd;
+}
+
 .highlight-button {
-  margin: 5px auto;
   display: block;
-  border-radius: 0.5em;
-  border: 2px solid rgb(110, 67, 167);
-  background-color: white;
+  margin: auto;
+  padding: 5px;
+
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
   font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 1em;
 }
 
 .highlight-clip {
