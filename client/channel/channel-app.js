@@ -45,7 +45,7 @@ export default class ChannelApp extends React.Component {
 
   render() {
 
-    if (this.state.loading || !this.state.name) return null
+    if (this.state.loading || !this.state.name) return <div id="channel-div"></div>
 
     return (
       <div id="channel-div">
