@@ -1,36 +1,43 @@
 #channel-div {
-  width: 70%;
-  margin: 20px auto;
+  width: 500px;
+  margin: 0 auto;
+  padding: 5px;
   text-align: center;
+
+  border-bottom: 1px solid #ddd;
 }
 
 #channel-img {
-  display: block;
-  margin: 0 auto;
-  border-radius: 0.3em;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  bottom: 2px;
+  width: 40px;
+
+  border-radius: 4px;
   background-color: rgb(110, 67, 167);
-  width: 4em;
+
 }
 
 #channel-name {
-  display: block;
-  text-align: center;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  margin: 5px;
+
   font-family: 'Rubik';
-  font-weight: 900;
-  font-style: italic;
-  font-size: 2.5em;
-  letter-spacing: 0.01em;
-  color: rgb(110, 67, 167);
-  margin: 0;
+  font-weight: 400;
+  font-size: 1.5em;
+  color: #000;
 }
 
 #channel-monitor {
-  font-size: 2em;
-  color: white;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  padding: 4px 10px 6px;
+
+  font-size: 1.5em;
   font-style: 'Rubik';
-  border-radius: 0.2em;
-  border: none;
-  background-color: rgb(110, 67, 167);
-  border-style: 1vw solid gray;
-  padding: 0.1vw 1vw;
+  font-weight: 400;
 }
