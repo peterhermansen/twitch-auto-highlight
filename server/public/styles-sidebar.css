@@ -1,4 +1,5 @@
 #sidebar-div {
+  position: absolute;
   height: calc(100vh - 55px);
   margin-top: 15px;
   width: 250px;
