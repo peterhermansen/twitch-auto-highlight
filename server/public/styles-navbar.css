@@ -1,3 +1,9 @@
+@media (max-width: 1150px) {
+  #navbar-title-button {
+    display:none;
+  }
+}
+
 #navbar-div {
   height: 55px;
   text-align: center;
