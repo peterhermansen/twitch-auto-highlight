@@ -7,6 +7,14 @@
   background-color: #322a42;
 }
 
+.sidebar-hidden {
+  left: -250px;
+}
+
+.sidebar-shown {
+  left: 0;
+}
+
 #sidebar-title {
   margin: 0 11px;
   padding: 10px 10px;
