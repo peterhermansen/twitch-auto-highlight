@@ -5,14 +5,12 @@
   width: 250px;
 
   background-color: #322a42;
-}
-
-.sidebar-hidden {
   left: -250px;
+  transition: left 0.25s ease-out;
 }
 
-.sidebar-shown {
-  left: 0;
+.sidebar-visible {
+  left: 0px !important;
 }
 
 #sidebar-title {
