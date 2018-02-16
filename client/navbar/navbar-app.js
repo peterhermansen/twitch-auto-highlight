@@ -6,14 +6,16 @@ export default class NavbarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {sidebarClassName: 'hidden'}
+    this.state = {sidebarClassName: 'sidebar-hidden'}
 
     this.handleMenuClick = this.handleMenuClick.bind(this)
   }
 
   handleMenuClick() {
-    if (this.state.sidebarClassName) this.setState({sidebarClassName: ''})
-    else this.setState({sidebarClassName: 'hidden'})
+    if (this.state.sidebarClassName === 'sidebar-hidden') {
+      this.setState({sidebarClassName: 'sidebar-visible'})
+    }
+    else this.setState({sidebarClassName: 'sidebar-hidden'})
   }
 
   handleTitleClick() {
