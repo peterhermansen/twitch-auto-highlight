@@ -1,0 +1,44 @@
+#channel-div {
+  width: 500px;
+  height: 53px;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+
+  border-bottom: 1px solid #ddd;
+}
+
+#channel-img {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  bottom: 2px;
+  width: 40px;
+
+  border-radius: 4px;
+  background-color: rgb(110, 67, 167);
+
+}
+
+#channel-name {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  margin: 5px;
+
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 1.5em;
+  color: #000;
+}
+
+#channel-monitor {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  padding: 4px 10px 6px;
+
+  font-size: 1.5em;
+  font-style: 'Rubik';
+  font-weight: 400;
+}

@@ -1,0 +1,28 @@
+#highlights {
+  text-align: center;
+}
+
+.highlight-bottom-border {
+  margin: 0 auto;
+  width: 500px;
+  border-bottom: 1px solid #ddd;
+}
+
+.highlight-button {
+  display: block;
+  margin: auto;
+  padding: 5px;
+
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.highlight-clip {
+  display: inline-block;
+  margin: 0 2px;
+}

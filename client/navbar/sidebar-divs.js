@@ -5,7 +5,7 @@ export default function SidebarDivs({ channelListData }) {
   return (
     <div id="sidebar-channels-div">
       <p id="sidebar-title">Followed Channels</p>
-      {channelListData.map(renderDiv)}
+      {channelListData.map(renderButton)}
     </div>
   )
 
@@ -15,15 +15,13 @@ function handleClick(channel) {
   window.location.hash = channel
 }
 
-function renderDiv(channel, iterator) {
+function renderButton(channel, iterator) {
   return (
-    <div className="sidebar-channel" key={iterator}>
-      <button className="sidebar-channel-button"
-        onClick={() => handleClick(channel.display_name)}
-      >
-        <img className="sidebar-channel-img" src={channel.profile_image_url} />
-        <p className="sidebar-channel-name">{channel.display_name}</p>
-      </button>
-    </div>
+    <button className="sidebar-channel-button" key={iterator}
+      onClick={() => handleClick(channel.display_name)}
+    >
+      <img className="sidebar-channel-img" src={channel.profile_image_url} />
+      <p className="sidebar-channel-name">{channel.display_name}</p>
+    </button>
   )
 }

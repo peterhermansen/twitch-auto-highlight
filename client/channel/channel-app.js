@@ -45,17 +45,17 @@ export default class ChannelApp extends React.Component {
 
   render() {
 
-    if (this.state.loading || !this.state.name) return null
+    if (this.state.loading || !this.state.name) return <div id="channel-div"></div>
 
     return (
       <div id="channel-div">
         <img id="channel-img" src={this.state.image}/>
-        <p id="channel-name">{this.state.name.toUpperCase()}</p>
-        <button id="channel-monitor"
+        <p id="channel-name">{this.state.name}</p>
+        <button id="channel-monitor" className="ui violet button"
           onClick={this.handleClick}
           type="button"
         >
-          MONITOR
+          Monitor
         </button>
       </div>
     )
