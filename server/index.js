@@ -4,6 +4,7 @@ const { createSocket } = require('./create-socket')
 const { MongoClient } = require('mongodb')
 const { highlightsGateway } = require('./highlights-gateway')
 const { channelsGateway } = require('./channels-gateway')
+const { usersGateway } = require('./users-gateway')
 const EventEmitter = require('events').EventEmitter
 const eventEmitter = new EventEmitter()
 
@@ -17,7 +18,8 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
 
   const app = createApp(
     highlightsGateway(highlights, eventEmitter),
-    channelsGateway(channels, eventEmitter)
+    channelsGateway(channels, eventEmitter),
+    usersGateway(users, eventEmitter)
   )
 
   const server = app.listen(process.env.PORT, () => {
@@ -28,7 +30,8 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
     server,
     eventEmitter,
     highlightsGateway(highlights, eventEmitter),
-    channelsGateway(channels, eventEmitter)
+    channelsGateway(channels, eventEmitter),
+    usersGateway(users, eventEmitter)
   )
 
 })
