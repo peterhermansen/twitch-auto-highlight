@@ -13,6 +13,7 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
 
   const highlights = db.collection('highlights')
   const channels = db.collection('channels')
+  const users = db.collection('users')
 
   const app = createApp(
     highlightsGateway(highlights, eventEmitter),
