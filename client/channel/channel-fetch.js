@@ -6,8 +6,18 @@ export default async function channelFetch(value) {
 
   const fetchInit = { method: 'GET', headers: myHeaders }
 
-  let channelResponse = await fetch(('https://api.twitch.tv/helix/users?login=' + value), fetchInit)
+  let channelResponse = await fetch(
+    ('https://api.twitch.tv/helix/users?login=' + value),
+    fetchInit
+  )
   channelResponse = await channelResponse.json()
+  if (!channelResponse.data[0]) {
+    channelResponse = await fetch(
+      ('https://api.twitch.tv/helix/users?id=' + value),
+      fetchInit
+    )
+    channelResponse = await channelResponse.json()
+  }
 
   if (!channelResponse) {
     return {
