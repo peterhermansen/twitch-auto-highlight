@@ -1,18 +1,15 @@
-function createSocket(server, eventEmitter, highlights, channels) {
-
+function createSocket(server, eventEmitter, highlights, channels, users) {
   const io = require('socket.io').listen(server)
 
   io.on('connection', (socket) => {
 
-    async function emitInitialChannelList() {
-      const initialChannelList = await channels.findChannels()
-      io.emit('updateChannelList', initialChannelList)
-    }
+    socket.on('channelArrayUpdate', async (userId) => {
+      const userObject = await users.findUser(userId)
+      io.emit('channelArrayNew', userObject)
+    })
 
-    emitInitialChannelList()
-
-    eventEmitter.on('updateChannelList', (channelList) => {
-      io.emit('updateChannelList', channelList)
+    eventEmitter.on('channelArrayUpdate', (userObject) => {
+      io.emit('channelArrayNew', userObject)
     })
 
     socket.on('highlightArrayChange', async (channel) => {
