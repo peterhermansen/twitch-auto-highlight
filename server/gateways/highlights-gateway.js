@@ -23,16 +23,15 @@ function highlightsGateway(collection, eventEmitter) {
       )
     },
 
-    async findHighlights(channelName) {
-      if (channelName) {
-        const highlightList = await collection.find({channel: channelName}).sort({date: -1}).toArray()
-        return highlightList
-      }
+    async findHighlights(channelArray) {
+      let totalHighlightArray = await Promise.all(channelArray.map(this.findChannel))
 
-      else {
-        const highlightList = await collection.find({}).sort({date: -1}).toArray()
-        return highlightList
+      function extractHighlightArray(channelObject) {
+        return channelObject.highlightArray
       }
+      totalHighlightArray = totalHighlightArray.map(extractHighlightArray)
+
+      return totalHighlightArray
     }
 
   }
