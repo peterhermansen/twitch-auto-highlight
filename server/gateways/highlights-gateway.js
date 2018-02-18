@@ -1,6 +1,11 @@
 function highlightsGateway(collection, eventEmitter) {
   return {
 
+    async findChannel(channelId) {
+      const channelObject = await collection.findOne({channelId: channelId})
+      return channelObject
+    },
+
     async createHighlight(highlightData) {
       collection.insertOne(highlightData)
     },
