@@ -21,6 +21,9 @@ export default function TwitchAuth({ addUser }) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({userId: token.sub})
     })
+
+    window.location.hash = ''
+    addUser()
   }
 
   return (
