@@ -3,11 +3,7 @@ function usersGateway(collection, eventEmitter) {
 
     async addUser(userId) {
       const result = await this.getUser(userId)
-      console.log(result)
-      if (!result) {
-        console.log('Creating User')
-        collection.insertOne({'id': userId})
-      }
+      if (!result) collection.insertOne({'id': userId})
     },
 
     async getUser(userId) {
