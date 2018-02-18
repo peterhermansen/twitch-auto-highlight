@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default function SidebarDivs({ channelListData }) {
-
+export default function SidebarDivs({ channelArrayData }) {
   return (
     <div id="sidebar-channels-div">
       <p id="sidebar-title">Followed Channels</p>
-      {channelListData.map(renderButton)}
+      {channelArrayData.map(renderButton)}
     </div>
   )
 

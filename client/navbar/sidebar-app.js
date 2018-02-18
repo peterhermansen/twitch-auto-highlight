@@ -7,26 +7,27 @@ export default class SidebarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {channelListData: []}
+    this.state = {channelArrayData: []}
 
-    this.updateChannelListData = this.updateChannelListData.bind(this)
+    this.updateChannelArray = this.updateChannelArray.bind(this)
   }
 
   async componentDidMount() {
-    socket.on('updateChannelList', (channelList) => {
-      this.updateChannelListData(channelList)
+    socket.emit('channelArrayUpdate', document.cookie.slice(8))
+    socket.on('channelArrayNew', (userObject) => {
+      this.updateChannelArray(userObject.channelArray)
     })
   }
 
-  async updateChannelListData(channelList) {
-    const channelListData = await Promise.all(channelList.map(channelFetch))
-    this.setState({channelListData: channelListData})
+  async updateChannelArray(channelArray) {
+    const channelArrayData = await Promise.all(channelArray.map(channelFetch))
+    this.setState({channelArrayData: channelArrayData})
   }
 
   render() {
     return (
       <div id="sidebar-div" className={this.props.className}>
-        <SidebarDivs channelListData={this.state.channelListData}/>
+        <SidebarDivs channelArrayData={this.state.channelArrayData}/>
       </div>
     )
   }
