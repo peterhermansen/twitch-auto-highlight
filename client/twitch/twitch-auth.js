@@ -15,6 +15,12 @@ export default function TwitchAuth({ addUser }) {
 
     const newCookie = 'user-id=' + token.sub + ';max-age=31536000'
     document.cookie = newCookie
+
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({userId: token.sub})
+    })
   }
 
   return (
