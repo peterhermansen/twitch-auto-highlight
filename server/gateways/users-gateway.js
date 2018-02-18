@@ -5,14 +5,14 @@ function usersGateway(collection, eventEmitter) {
       const userObject = await this.findUser(userId)
       if (!userObject) {
         collection.insertOne({
-          id: userId,
+          channelId: userId,
           channelArray: []
         })
       }
     },
 
     async findUser(userId) {
-      const userObject = await collection.findOne({id: userId})
+      const userObject = await collection.findOne({channelId: userId})
       return userObject
     },
 
@@ -21,7 +21,7 @@ function usersGateway(collection, eventEmitter) {
       if (userObject.channelArray.indexOf(channel) === -1) {
         userObject.channelArray.push(channel)
         await collection.updateOne(
-          {id: userId},
+          {channelId: userId},
           {$set: {channelArray: userObject.channelArray}}
         )
         eventEmitter.emit('channelArrayUpdate', userObject)
