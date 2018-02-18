@@ -2,11 +2,11 @@ function usersGateway(collection, eventEmitter) {
   return {
 
     async addUser(userId) {
-      const result = await this.getUser(userId)
+      const result = await this.findUser(userId)
       if (!result) collection.insertOne({'id': userId})
     },
 
-    async getUser(userId) {
+    async findUser(userId) {
       const userObject = await collection.findOne({'id': userId})
       return userObject
     }
