@@ -40,7 +40,7 @@ function chatAlgorithm(chatArray, channelData, highlights) {
           increase: currentChat / averageChat
         }
 
-        highlights.createHighlight(newHighlight)
+        highlights.createHighlight(newHighlight, channelData.id)
 
       }
     }
