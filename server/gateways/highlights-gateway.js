@@ -6,6 +6,14 @@ function highlightsGateway(collection, eventEmitter) {
       return channelObject
     },
 
+    async addChannel(channelId) {
+      const channelObject = {
+        channelId: channelId,
+        highlightArray: []
+      }
+      await collection.insertOne(channelObject)
+    },
+
     async createHighlight(highlightData) {
       collection.insertOne(highlightData)
     },
