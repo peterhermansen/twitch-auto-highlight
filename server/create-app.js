@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
-const { chatGateway } = require('./chat-gateway')
+const { chatGateway } = require('./gateways/chat/chat-gateway')
 
 function createApp(highlights, channels, users) {
 

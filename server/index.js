@@ -2,9 +2,9 @@ require('dotenv/config')
 const { createApp } = require('./create-app')
 const { createSocket } = require('./create-socket')
 const { MongoClient } = require('mongodb')
-const { highlightsGateway } = require('./highlights-gateway')
-const { channelsGateway } = require('./channels-gateway')
-const { usersGateway } = require('./users-gateway')
+const { highlightsGateway } = require('./gateways/highlights-gateway')
+const { channelsGateway } = require('./gateways/channels-gateway')
+const { usersGateway } = require('./gateways/users-gateway')
 const EventEmitter = require('events').EventEmitter
 const eventEmitter = new EventEmitter()
 
