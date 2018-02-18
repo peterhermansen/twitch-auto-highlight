@@ -11,7 +11,7 @@ function createApp(highlights, channels) {
     .use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.json())
 
-    .post('/', (req, res) => {
+    .post('/monitor', (req, res) => {
       chatGateway(req.body.channelData, highlights).monitorChat()
       res.send('Monitoring Stream!')
     })
