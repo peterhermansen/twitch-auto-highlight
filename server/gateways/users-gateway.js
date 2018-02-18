@@ -2,8 +2,8 @@ function usersGateway(collection, eventEmitter) {
   return {
 
     async addUser(userId) {
-      const result = await this.findUser(userId)
-      if (!result) {
+      const userObject = await this.findUser(userId)
+      if (!userObject) {
         collection.insertOne({
           id: userId,
           channelArray: []
