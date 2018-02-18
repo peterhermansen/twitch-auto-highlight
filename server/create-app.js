@@ -17,8 +17,10 @@ function createApp(highlights, channels, users) {
     })
 
     .post('/channels', async (req, res) => {
-      const channel = req.body.channelData.display_name.toLowerCase()
+      const channel = req.body.channel
+      const userId = req.body.userId
       await channels.addChannel(channel)
+      await users.addChannel(userId, channel)
     })
 
     .post('/users', async (req, res) => {
