@@ -20,9 +20,7 @@ export default class SidebarApp extends React.Component {
   }
 
   async updateChannelArray(channelArray) {
-    const channelArrayData = await Promise.all(channelArray.map((channelId) => {
-      channelFetch({channelId: channelId})
-    }))
+    const channelArrayData = await channelFetch({channelId: channelArray})
     this.setState({channelArrayData: channelArrayData})
   }
 
