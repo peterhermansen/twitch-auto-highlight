@@ -2,19 +2,14 @@ function channelsGateway(collection, eventEmitter) {
   return {
 
     async findChannels() {
-      const channelArray = await collection.findOne({})
-      if (!channelArray) {
-        await collection.insertOne({channelArray: []})
-        return {channelArray: []}
-      }
-      return channelArray.channelArray
+      const channelArray = await collection.find({}).toArray()
+      return channelArray
     },
 
     async addChannel(channel) {
-      let channelArray = await this.findChannels()
+      const channelArray = await this.findChannels()
       if (channelArray.indexOf(channel) === -1) {
-        channelArray.push(channel)
-        await collection.updateOne({}, {$set: {channelArray: channelArray}})
+        await collection.insertOne({channelId: channel})
       }
     }
 
