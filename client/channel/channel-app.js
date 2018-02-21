@@ -30,11 +30,13 @@ export default class ChannelApp extends React.Component {
   }
 
   async handleNewHash() {
-    const channelData = await channelFetch(window.location.hash.slice(1).toLowerCase())
+    const channelData = await channelFetch({
+      channelName: [window.location.hash.slice(1).toLowerCase()]
+    })
     this.setState({
       channelData: channelData,
-      name: channelData.display_name,
-      image: channelData.profile_image_url,
+      name: channelData[0].display_name,
+      image: channelData[0].profile_image_url,
       loading: false
     })
   }
