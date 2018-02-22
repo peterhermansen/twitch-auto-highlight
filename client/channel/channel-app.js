@@ -34,7 +34,7 @@ export default class ChannelApp extends React.Component {
       channelName: [window.location.hash.slice(1).toLowerCase()]
     })
     this.setState({
-      channelData: channelData,
+      channelData: channelData[0],
       name: channelData[0].display_name,
       image: channelData[0].profile_image_url,
       loading: false
