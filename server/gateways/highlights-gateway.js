@@ -3,15 +3,15 @@ function highlightsGateway(collection, eventEmitter) {
 
     async findChannel(channelId) {
       const channelObject = await collection.findOne({channelId: channelId})
-      return channelObject
-    },
-
-    async addChannel(channelId) {
-      const channelObject = {
-        channelId: channelId,
-        highlightArray: []
+      if (!channelObject) {
+        const newChannelObject = {
+          channelId: channelId,
+          highlightArray: []
+        }
+        await collection.insertOne(newChannelObject)
+        return newChannelObject
       }
-      await collection.insertOne(channelObject)
+      return channelObject
     },
 
     async createHighlight(highlightData, channelId) {
