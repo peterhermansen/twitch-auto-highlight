@@ -10,6 +10,7 @@ export default async function channelFetch({ channelName, channelId }) {
 
   if (!channelId && !channelName[0]) {
     return [{
+      id: '',
       display_name: '',
       profile_image_url: ''
     }]
@@ -35,6 +36,7 @@ export default async function channelFetch({ channelName, channelId }) {
 
   if (!channelResponse.data[0]) {
     return [{
+      id: '',
       display_name: 'No Results Found',
       profile_image_url: 'images/twitch-error.png'
     }]
