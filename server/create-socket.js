@@ -12,8 +12,13 @@ function createSocket(server, eventEmitter, highlights, channels, users) {
       io.emit('channelArrayNew', userObject)
     })
 
-    socket.on('highlightArrayChange', async (channel) => {
-      const highlightArray = await highlights.findHighlights(channel)
+    socket.on('highlightArrayChange', async (idObject) => {
+      let channelArray = idObject.channelId
+      if (!channelArray[0]) {
+        channelArray = await users.findUser(idObject.userId)
+        channelArray = channelArray.channelArray
+      }
+      const highlightArray = await highlights.findHighlights(channelArray)
       io.emit('highlightArrayUpdate', highlightArray)
     })
   })
