@@ -3,7 +3,7 @@
 
 export default function highlightEmbed(streamArray) {
 
-  function highlightOptions({ vod, time, _id }) {
+  function highlightOptions({ vod, time }) {
     const embedOptions = {
       width: 426,
       height: 240,
@@ -12,7 +12,7 @@ export default function highlightEmbed(streamArray) {
       time: time + 's'
     }
 
-    const newPlayer = new Twitch.Player(_id, embedOptions)
+    const newPlayer = new Twitch.Player(vod + time, embedOptions)
   }
 
   streamArray.map(highlightOptions)
