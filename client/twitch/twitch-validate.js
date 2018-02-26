@@ -7,7 +7,7 @@ export default async function validateToken(hash, addUser) {
     body: JSON.stringify({token: token})
   })
   validation = await validation.json()
-  console.log(validation)
+
   if (validation) {
     const newCookie = 'token=' + token + ';max-age=31536000'
     document.cookie = newCookie
