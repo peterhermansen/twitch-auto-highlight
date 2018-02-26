@@ -14,7 +14,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    if (document.cookie.indexOf('user-id') >= 0) this.setState({newUser: false})
+    if (document.cookie.indexOf('token') !== -1) this.setState({newUser: false})
   }
 
   addUser() {
