@@ -10,7 +10,7 @@ export default async function channelMonitor(channelData) {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
-      userId: document.cookie.slice(8),
+      token: document.cookie.slice(6),
       channel: channelData.id
     })
   })
