@@ -33,7 +33,7 @@ export default class HighlightApp extends React.Component {
     })
     socket.emit('highlightArrayChange', {
       channelId: [channelData[0].id],
-      userId: document.cookie.slice(8)
+      token: document.cookie.slice(6)
     })
   }
 
