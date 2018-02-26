@@ -13,7 +13,7 @@ export default class SidebarApp extends React.Component {
   }
 
   async componentDidMount() {
-    socket.emit('channelArrayUpdate', document.cookie.slice(8))
+    socket.emit('channelArrayUpdate', document.cookie.slice(6))
     socket.on('channelArrayNew', (userObject) => {
       this.updateChannelArray(userObject.channelArray)
     })
