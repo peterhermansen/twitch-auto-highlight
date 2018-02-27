@@ -1,0 +1,28 @@
+#login-div {
+  margin: 30px auto;
+  width: 380px;
+  background-color: #fff;
+  text-align: center;
+}
+
+#login-text {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Rubik';
+  font-size: 1em;
+}
+
+#login-button {
+  width: 60px;
+  height: 30px;
+  margin: 0 0 20px;
+  border: none;
+  background-color: #6000c1;
+  color: #fff;
+  font-family: 'Rubik'
+}
+
+#login-button:hover {
+  background-color: #862fe0;
+  cursor: pointer;
+}
