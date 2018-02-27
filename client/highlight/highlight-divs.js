@@ -51,9 +51,7 @@ export default class HighlightDivs extends React.Component {
   render() {
     return (
       <div id="highlights">
-        {this.props.highlights.map((streamArray) => {
-          return streamArray.map(this.renderDiv)
-        })}
+        {this.props.highlights.map(this.renderDiv)}
       </div>
 
     )
