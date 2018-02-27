@@ -2,9 +2,12 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const { chatGateway } = require('./gateways/chat/chat-gateway')
+const { monitorChannels } = require('./gateways/chat/monitor-channels')
 const { validateToken } = require('./twitch/twitch-validate.js')
 
 function createApp(highlights, channels, users) {
+
+  monitorChannels(channels, chatGateway)
 
   const app = express()
 
@@ -12,16 +15,10 @@ function createApp(highlights, channels, users) {
     .use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.json())
 
-    .post('/monitor', (req, res) => {
-      chatGateway(req.body.channelData, highlights).monitorChat()
-      res.send('Monitoring Stream!')
-    })
-
     .post('/channels', async (req, res) => {
-      const channel = req.body.channel
-      const token = req.body.token
-      await channels.addChannel(channel)
-      await users.addChannel(token, channel)
+      const newChannel = await channels.addChannel(req.body.channelData)
+      if (newChannel) chatGateway(req.body.channelData, highlights).monitorChat()
+      await users.addChannel(req.body.token, req.body.channelData.id)
     })
 
     .post('/users', async (req, res) => {
