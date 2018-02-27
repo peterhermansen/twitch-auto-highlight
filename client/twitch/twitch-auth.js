@@ -4,7 +4,7 @@ import validateToken from './twitch-validate'
 export default function TwitchAuth({ addUser }) {
   const url = 'https://api.twitch.tv/kraken/oauth2/authorize'
   const clientId = '?client_id=l8lprk488tfke811xasmull5ckhwbh'
-  const redirectUrl = '&redirect_uri=http://localhost:3000'
+  const redirectUrl = '&redirect_uri=https://stream-highlights.herokuapp.com/'
   const reponseType = '&response_type=id_token'
   const scope = '&scope=user_subscriptions+openid'
 
