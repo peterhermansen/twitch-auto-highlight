@@ -39,7 +39,5 @@ export default function highlightSort(highlights) {
   })
 
   divArray = divArray.sort(compareDate)
-  console.log(divArray)
-
   return divArray
 }
