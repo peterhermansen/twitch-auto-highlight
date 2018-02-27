@@ -41,7 +41,7 @@ function createApp(highlights, channels, users) {
         await users.addUser(userData)
         res.send(true)
       }
-      res.send(false)
+      else res.send(false)
 
     })
 
