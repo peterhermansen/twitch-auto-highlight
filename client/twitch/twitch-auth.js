@@ -14,8 +14,11 @@ export default function TwitchAuth({ addUser }) {
   }
 
   return (
-    <a href={url + clientId + redirectUrl + reponseType + scope}>
-      <button id="twitch-auth"></button>
-    </a>
+    <div id="login-div">
+      <p id="login-text">Login with Twitch to access stream highlights.</p>
+      <a href={url + clientId + redirectUrl + reponseType + scope}>
+        <button id="login-button">Log In</button>
+      </a>
+    </div>
   )
 }
