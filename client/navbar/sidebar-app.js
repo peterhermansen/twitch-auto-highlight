@@ -1,20 +1,23 @@
 import React from 'react'
 import channelFetch from '../channel/channel-fetch'
 import SidebarDivs from './sidebar-divs'
-import { socket } from '../socket.js'
+import io from 'socket.io-client'
 
 export default class SidebarApp extends React.Component {
 
   constructor() {
     super()
-    this.state = {channelArrayData: []}
+    this.state = {
+      channelArrayData: [],
+      socket: io('/' + document.cookie.slice(6))
+    }
 
     this.updateChannelArray = this.updateChannelArray.bind(this)
   }
 
   async componentDidMount() {
-    socket.emit('channelArrayUpdate', document.cookie.slice(6))
-    socket.on('channelArrayNew', (userObject) => {
+    this.state.socket.emit('channelArrayUpdate', document.cookie.slice(6))
+    this.state.socket.on('channelArrayNew', (userObject) => {
       this.updateChannelArray(userObject.channelArray)
     })
   }
