@@ -1,6 +1,9 @@
 {
   "name": "twitch-auto-highlight",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.9.4"
+  },
   "description": "A web app for twitch viewers who want to see auto-generated highlights of their favorite streamers.",
   "private": true,
   "scripts": {
