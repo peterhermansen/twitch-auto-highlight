@@ -1,24 +1,55 @@
-function createSocket(server, eventEmitter, highlights, channels) {
-
+async function createSocket(server, eventEmitter, highlights, channels, users) {
   const io = require('socket.io').listen(server)
 
-  io.on('connection', (socket) => {
+  function createNamespace(token) {
+    const nsp = io.of('/' + token)
+    nsp.on('connection', (socket) => {
 
-    async function emitInitialChannelList() {
-      const initialChannelList = await channels.findChannels()
-      io.emit('updateChannelList', initialChannelList)
-    }
+      socket.on('channelArrayUpdate', async (token) => {
+        const userObject = await users.findUserToken(token)
+        nsp.emit('channelArrayNew', userObject)
+      })
 
-    emitInitialChannelList()
+      eventEmitter.on('channelArrayUpdate', (userObject) => {
+        if (userObject.token === token) {
+          nsp.emit('channelArrayNew', userObject)
+        }
+      })
 
-    eventEmitter.on('updateChannelList', (channelList) => {
-      io.emit('updateChannelList', channelList)
+      socket.on('highlightArrayChange', async (idObject) => {
+        let channelArray = idObject.channelId
+        if (!channelArray[0]) {
+          channelArray = await users.findUserToken(idObject.token)
+          channelArray = channelArray.channelArray
+        }
+        const highlightArray = await highlights.findHighlights(channelArray)
+        nsp.emit('highlightArrayUpdate', highlightArray)
+      })
+
+      eventEmitter.on('highlightArrayUpdate', async (channelId) => {
+        const userObject = await users.findUserToken(token)
+        const channelMatch = userObject.channelArray.filter((channel) => {
+          return channel === channelId
+        })
+        if (channelMatch.length === 1) {
+          const highlightArray = await highlights.findHighlights(userObject.channelArray)
+          nsp.emit('highlightArrayUpdate', highlightArray)
+        }
+      })
     })
+  }
 
-    socket.on('highlightArrayChange', async (channel) => {
-      const highlightArray = await highlights.findHighlights(channel)
-      io.emit('highlightArrayUpdate', highlightArray)
-    })
+  const userArray = await users.findUserAll({})
+  const tokenArray = userArray.map((userObject) => {
+    return userObject.token
+  })
+
+  tokenArray.map((token) => {
+    createNamespace(token)
+  })
+
+  eventEmitter.on('userTokenUpdate', (token) => {
+    createNamespace(token)
   })
 }
 

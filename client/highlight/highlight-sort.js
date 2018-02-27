@@ -1,10 +1,17 @@
 export default function highlightSort(highlights) {
   let divArray = []
   let streamArray = []
+  let highlightLength
 
   function compareIncrease(a, b) {
     if (a.increase < b.increase) return -1
     if (a.increase > b.increase) return 1
+    return 0
+  }
+
+  function compareDate(a, b) {
+    if (a[0].date > b[0].date) return -1
+    if (a[0].date < b[0].date) return 1
     return 0
   }
 
@@ -19,14 +26,18 @@ export default function highlightSort(highlights) {
       streamArray = []
       streamArray.push(highlight)
     }
-    if (iterator === highlights.length - 1) {
+    if (iterator === highlightLength - 1) {
       streamArray = streamArray.sort(compareIncrease)
       divArray.push(streamArray)
       streamArray = []
-      streamArray.push(highlight)
     }
   }
 
-  highlights.map(divideHighlights)
+  highlights.map((streamArray) => {
+    highlightLength = streamArray.length
+    return streamArray.map(divideHighlights)
+  })
+
+  divArray = divArray.sort(compareDate)
   return divArray
 }
