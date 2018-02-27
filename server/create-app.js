@@ -7,7 +7,7 @@ const { validateToken } = require('./twitch/twitch-validate.js')
 
 function createApp(highlights, channels, users) {
 
-  monitorChannels(channels, chatGateway)
+  monitorChannels(channels, chatGateway, highlights)
 
   const app = express()
 
