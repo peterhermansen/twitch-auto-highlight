@@ -11,7 +11,6 @@ export default async function validateToken(hash, addUser) {
   if (validation) {
     const newCookie = 'token=' + token + ';max-age=31536000'
     document.cookie = newCookie
-
     window.location.hash = ''
     addUser()
   }
