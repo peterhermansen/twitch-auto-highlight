@@ -9,6 +9,12 @@ export default function highlightSort(highlights) {
     return 0
   }
 
+  function compareDate(a, b) {
+    if (a[0].date > b[0].date) return -1
+    if (a[0].date < b[0].date) return 1
+    return 0
+  }
+
   function divideHighlights(highlight, iterator) {
     if (iterator === 0) streamArray.push(highlight)
     if (iterator > 0 && highlight.date === streamArray[0].date) {
@@ -31,6 +37,9 @@ export default function highlightSort(highlights) {
     highlightLength = streamArray.length
     return streamArray.map(divideHighlights)
   })
+
+  divArray = divArray.sort(compareDate)
+  console.log(divArray)
 
   return divArray
 }
