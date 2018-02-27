@@ -26,6 +26,16 @@ async function createSocket(server, eventEmitter, highlights, channels, users) {
         nsp.emit('highlightArrayUpdate', highlightArray)
       })
 
+      eventEmitter.on('highlightArrayUpdate', async (channelId) => {
+        const userObject = await users.findUserToken(token)
+        const channelMatch = userObject.channelArray.filter((channel) => {
+          return channel === channelId
+        })
+        if (channelMatch.length === 1) {
+          const highlightArray = await highlights.findHighlights(userObject.channelArray)
+          nsp.emit('highlightArrayUpdate', highlightArray)
+        }
+      })
     })
   }
 
