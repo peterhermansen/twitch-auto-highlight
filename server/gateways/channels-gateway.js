@@ -16,7 +16,9 @@ function channelsGateway(collection, eventEmitter) {
           id: channelData.id,
           display_name: channelData.display_name
         })
+        return true
       }
+      return false
     }
 
   }
