@@ -17,6 +17,7 @@ function usersGateway(collection, eventEmitter) {
           {$set: {token: userData.token}}
         )
       }
+      eventEmitter.emit('userTokenUpdate', userData.token)
     },
 
     async findUserToken(token) {
