@@ -11,7 +11,7 @@ export default async function channelMonitor(channelData) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       token: document.cookie.slice(6),
-      channel: channelData.id
+      channelData: channelData
     })
   })
 
