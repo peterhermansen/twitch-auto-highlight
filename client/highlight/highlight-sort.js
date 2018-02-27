@@ -1,6 +1,7 @@
 export default function highlightSort(highlights) {
   let divArray = []
   let streamArray = []
+  let highlightLength
 
   function compareIncrease(a, b) {
     if (a.increase < b.increase) return -1
@@ -19,14 +20,17 @@ export default function highlightSort(highlights) {
       streamArray = []
       streamArray.push(highlight)
     }
-    if (iterator === highlights.length - 1) {
+    if (iterator === highlightLength - 1) {
       streamArray = streamArray.sort(compareIncrease)
       divArray.push(streamArray)
       streamArray = []
-      streamArray.push(highlight)
     }
   }
 
-  highlights.map(divideHighlights)
+  highlights.map((streamArray) => {
+    highlightLength = streamArray.length
+    return streamArray.map(divideHighlights)
+  })
+
   return divArray
 }
