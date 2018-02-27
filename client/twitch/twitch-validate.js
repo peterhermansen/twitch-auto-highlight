@@ -1,7 +1,7 @@
 export default async function validateToken(hash, addUser) {
   const token = hash.slice((hash.indexOf('=') + 1), hash.indexOf('&'))
 
-  let validation = await fetch('http://localhost:3000/validation', {
+  let validation = await fetch('/validation', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({token: token})
