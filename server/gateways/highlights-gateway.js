@@ -21,6 +21,7 @@ function highlightsGateway(collection, eventEmitter) {
         {channelId: channelId},
         {$set: {highlightArray: channelObject.highlightArray}}
       )
+      eventEmitter.emit('highlightArrayUpdate', channelId)
     },
 
     async findHighlights(channelArray) {
