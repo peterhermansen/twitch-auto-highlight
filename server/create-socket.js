@@ -11,7 +11,9 @@ async function createSocket(server, eventEmitter, highlights, channels, users) {
       })
 
       eventEmitter.on('channelArrayUpdate', (userObject) => {
-        nsp.emit('channelArrayNew', userObject)
+        if (userObject.token === token) {
+          nsp.emit('channelArrayNew', userObject)
+        }
       })
 
       socket.on('highlightArrayChange', async (idObject) => {
