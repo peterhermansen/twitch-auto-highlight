@@ -12,8 +12,8 @@ function usersGateway(collection, eventEmitter) {
         })
       }
       else if (userObject.token !== userData.token) {
-        await collection.updateOne(
-          {channelId: userData.id},
+        collection.updateOne(
+          {channelId: userData.channelId},
           {$set: {token: userData.token}}
         )
       }
@@ -27,6 +27,11 @@ function usersGateway(collection, eventEmitter) {
     async findUserId(channelId) {
       const userObject = await collection.findOne({channelId: channelId})
       return userObject
+    },
+
+    async findUserAll() {
+      const userArray = await collection.find({}).toArray()
+      return userArray
     },
 
     async addChannel(token, channel) {
