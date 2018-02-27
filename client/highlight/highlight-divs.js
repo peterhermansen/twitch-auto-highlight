@@ -24,6 +24,8 @@ export default class HighlightDivs extends React.Component {
 
   renderDiv(streamArray, iterator) {
     if (!streamArray.length) return null
+    const hash = window.location.hash
+    if (hash !== '' && streamArray[0].channel !== hash.slice(1).toLowerCase()) return null
     const cleanDate = dateFormat(streamArray[0].date, 'fullDate')
 
     function renderHighlight(highlight, vod) {
