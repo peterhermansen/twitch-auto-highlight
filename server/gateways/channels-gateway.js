@@ -6,10 +6,16 @@ function channelsGateway(collection, eventEmitter) {
       return channelArray
     },
 
-    async addChannel(channel) {
+    async addChannel(channelData) {
       const channelArray = await this.findChannels()
-      if (channelArray.indexOf(channel) === -1) {
-        await collection.insertOne({channelId: channel})
+      const match = channelArray.filter((channel) => {
+        return channel.id === channelData.id
+      })
+      if (match.length !== 1) {
+        await collection.insertOne({
+          id: channelData.id,
+          display_name: channelData.display_name
+        })
       }
     }
 
