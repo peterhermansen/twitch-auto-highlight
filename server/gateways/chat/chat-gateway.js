@@ -23,6 +23,9 @@ function chatGateway(channelData, highlights) {
       client.on('slowmode', (channel, enabled, length) => {
         if (!enabled) chatLog = []
       })
+      client.on('followersonly', (channel, enabled, length) => {
+        if (!enabled) chatLog = []
+      })
       setInterval(() => {
         chatLog.push(chatInterval)
         chatInterval = []
