@@ -1,5 +1,4 @@
 function highlightsGateway(collection, eventEmitter) {
-  collection.deleteMany({})
   return {
 
     async findChannel(channelId) {
