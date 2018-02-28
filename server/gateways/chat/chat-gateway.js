@@ -9,16 +9,8 @@ function chatGateway(channelData, highlights) {
       let chatInterval = []
       const channelRemoveSpace = channelData.display_name.replace(' ', '')
       const client = new tmi.Client({
-        options: {
-          debug: true
-        },
-        connection: {
-          reconnect: true
-        },
-        identity: {
-          username: process.env.USERNAME,
-          password: process.env.CHAT_SECRET
-        },
+        options: { clientId: process.env.CLIENT_ID },
+        connection: { reconnect: true },
         channels: ['#' + channelRemoveSpace]
       })
       client.connect()
