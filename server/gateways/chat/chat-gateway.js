@@ -5,7 +5,7 @@ const { chatAlgorithm } = require('./chat-algorithm.js')
 function chatGateway(channelData, highlights) {
   return {
     monitorChat() {
-      const chatLog = []
+      let chatLog = []
       let chatInterval = []
       const channelRemoveSpace = channelData.display_name.replace(' ', '')
       const client = new tmi.Client({
@@ -16,6 +16,9 @@ function chatGateway(channelData, highlights) {
       client.connect()
       client.on('chat', (channel, userstate, message, self) => {
         chatInterval.push(message)
+      })
+      client.on('subscribers', (channel, enabled) => {
+        if (!enabled) chatLog = []
       })
       setInterval(() => {
         chatLog.push(chatInterval)
