@@ -17,7 +17,7 @@ function createApp(highlights, channels, users) {
 
     .post('/channels', async (req, res) => {
       const newChannel = await channels.addChannel(req.body.channelData)
-      if (newChannel) chatGateway(req.body.channelData, highlights).monitorChat()
+      if (newChannel) chatGateway(req.body.channelData, highlights)
       await users.addChannel(req.body.token, req.body.channelData.id)
     })
 
