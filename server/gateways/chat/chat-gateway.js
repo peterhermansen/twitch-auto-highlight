@@ -20,6 +20,9 @@ function chatGateway(channelData, highlights) {
       client.on('subscribers', (channel, enabled) => {
         if (!enabled) chatLog = []
       })
+      client.on('slowmode', (channel, enabled, length) => {
+        if (!enabled) chatLog = []
+      })
       setInterval(() => {
         chatLog.push(chatInterval)
         chatInterval = []
