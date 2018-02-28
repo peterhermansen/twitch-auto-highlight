@@ -26,7 +26,7 @@ async function chatAlgorithm(chatArray, channelData, highlights) {
     const calculateTime = (createdAt) => {
       const createdDate = new Date(createdAt).getTime()
       const nowDate = new Date().getTime()
-      return Math.floor(((nowDate - createdDate) / 1000) - 25)
+      return Math.floor(((nowDate - createdDate) / 1000) - 50)
     }
 
     const newHighlight = {
